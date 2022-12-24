@@ -4,6 +4,8 @@
 #include <conio.h>
 #include <unistd.h>
 
+// hola soy un comentario 
+int comentario=1;
 typedef struct
 {
     int id;
