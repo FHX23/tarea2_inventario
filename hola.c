@@ -93,7 +93,7 @@ int login() // NUEVO LOGIN MODIFICADO
     */
     system("cls");
     printf("Ingrese su nombre de usuario\n");
-    gets(usuario);
+    scanf("%s",usuario);
     fflush(stdin);
     
     //? leemos el usuario noma y luego la contra  y luego verificamos si una de las 2 fallo
@@ -115,12 +115,11 @@ int login() // NUEVO LOGIN MODIFICADO
         contra[i] = _getch();
         printf("*");
         	//printf("valor de i %d\n",i);
-    } while (contra[i] != 13);
+    } while (i <= 3 && contra[i] != 13);
 	//printf("salio del bucle\n");
 	// todo aqui si ingreso 5 characteres debe ingresar un enter para mandarlos , si ingreso 3 seria que ya metio un enter,
 	// todo y no se mete aqui
 	
-	/*
     if (contra[i]!= 13)
     {
         do
@@ -128,7 +127,7 @@ int login() // NUEVO LOGIN MODIFICADO
             bande = _getch();
         } while (bande != 13 );
     }
-    */
+    
     // ! verificacion del usuario
     // todo aqui leeo el usuario con gets, pregunto si es igual al de la base de dato"""
     // todo si es igual pasa a la contrasena sino returna 1 y printea que reingrese los datos
