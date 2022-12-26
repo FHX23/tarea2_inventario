@@ -4,8 +4,6 @@
 #include <conio.h>
 #include <unistd.h>
 
-// hola soy un comentario 
-int comentario=1;
 typedef struct
 {
     int id;
@@ -21,7 +19,7 @@ usuario user;
 void llenar_user();
 void mostrar_user();
 int login();
-
+void opciones();
 int main(int argc, char const *argv[])
 {
     int bandera = 1, i; // MODIFICADO EL BANDERA = 1
@@ -71,6 +69,10 @@ int main(int argc, char const *argv[])
     printf(" | | | | \\ V /  __/ | | | || (_| | |  | | (_) |\n");
     printf(" |_|_| |_|\\_/ \\___|_| |_|\\__\\__,_|_|  |_|\\___/ \n");
     system("pause");
+
+    system("cls");
+
+    opciones();
 
     system("pause");
     return 0;
@@ -193,6 +195,60 @@ int login() // NUEVO LOGIN MODIFICADO
     return bandera;
 }
 */
+
+
+void opciones(){
+
+    // ! dime si las opciones estan bien 
+    //Debe poder agregar un producto, actualizar un producto, listar los productos y eliminar un
+//producto (CRUD).
+//• Debe poder realizar una búsqueda por la marca del producto.
+//• Debe contar con un menú para poder realizar las operaciones mencionadas.
+//• Debe indicar la cantidad de existencias de cada producto.
+    int opcion;
+    do{
+        printf("Ingrese su opcion\n");
+        printf("1 agregar un producto\n");
+        printf("2 actualizar un producto\n");
+        printf("3 listar un tipo de productos\n");
+        printf("4 eliminar un producto\n");
+        printf("5 buscar un producto por su marca\n");// de forma recursiva
+        printf("6 cerrar progama\n");
+        opcion=_getch();
+        // ! al entrar en el case llamamos una funcion 
+        // ! sabemos siempre habra 3 minimo comentame cual es tu idea para  para saber en que posisicion vamos del
+        // ! ejemplo teclado[i].marca como sabemos el i si esque elimino alguno o nose comentame tu idea
+        
+        switch(opcion){
+
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
+
+                break;
+            default
+                printf("ERROR OPCION INVALIDA, REINGRESE DATO\n");
+                break;
+
+        }
+
+    }while(opcion !=6);
+
+}
+
 
 void llenar_user()
 {
