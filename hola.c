@@ -10,26 +10,20 @@ typedef struct
     char marca[15];
     char modelo[10];
     char idioma[10];
-
+    int stock;
 } estructura_teclado;
 
 estructura_teclado teclado[20]; //  DEFINIMOS TECLADOS 
-
-int stock_teclado[20];
-stock_teclado[0] = 1;
-stock_teclado[1] = 1;
-stock_teclado[2] = 1;
 
 typedef struct
 {
     int id;
     char marca[15];
     char modelo[10];
-
+    int stock;
 } estructura_mouse;
 
 estructura_mouse mouse[20]; // DEFINIMOS MOUSE
-
 
 typedef struct
 {
@@ -37,11 +31,10 @@ typedef struct
     char marca[15];
     char modelo[10];
     int pulgadas; //! PULGADAS > 7
-
+    int stock;
 } estructura_monitor;
 
 estructura_monitor monitor[20]; // DEFINIMOS MONITOR
-
 
 typedef struct
 {
@@ -51,7 +44,7 @@ typedef struct
     int ram; //! RAM SIEMPRE POTENCIA DE 2
     char procesador;
     int pulgadas; //! PULGADAS > 11
-
+    int stock;
 } estructura_notebook;
 
 estructura_notebook note[20]; // DEFINIMOS NOTEBOOK
@@ -67,10 +60,11 @@ typedef struct
     estructura_teclado pc_teclado;
     estructura_mouse pc_mouse;
     estructura_monitor pc_monitor;
-
+    int stock;
 } estructura_pc;
 
 estructura_pc pc[20]; // DEFINIMOS TORRE/PC
+
 
 typedef struct
 {
@@ -85,15 +79,17 @@ typedef struct
 usuario user;
 
 void llenar_user();
+void llenar_datos_struct();
 void mostrar_user();
 int login();
 void opciones();
+
 int main(int argc, char const *argv[])
 {
     int bandera = 1, i;
     system("title login inventario");
     llenar_user();
-
+    llenar_datos_struct();
     do
     {
         bandera = login();
@@ -262,7 +258,29 @@ void opciones(){
 
 }
 
+void llenar_datos_struct(){
+    int i;
+    for(i=0; i<20; i++){
 
+        if(i==0 || i== 1 || i==2 ){
+
+            teclado[i].stock=1;
+            mouse[i].stock=1;
+            monitor[i].stock=1;
+            note[i].stock=1;
+            pc[i].stock=1;
+        }else{
+            teclado[i].stock=0;
+            mouse[i].stock=0;
+            monitor[i].stock=0;
+            note[i].stock=0;
+            pc[i].stock=0;
+        }
+    }
+
+// * en esta misma funcion llenar los 3 primeros datos tambiens agregar despues
+// ? ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨
+}
 void llenar_user()
 {
     user.id = 777;
@@ -279,6 +297,4 @@ void mostrar_user()
     printf("sus apellidos son %s %s\n", user.apellidop, user.apellidom);
     printf("y su id es %d\n", user.id);
 }
-
-
 
