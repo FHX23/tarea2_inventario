@@ -4,7 +4,73 @@
 #include <conio.h>
 #include <unistd.h>
 
-//COMENTARIO TESTEO
+typedef struct
+{
+    int id;
+    char marca[15];
+    char modelo[10];
+    char idioma[10];
+
+} estructura_teclado;
+
+estructura_teclado teclado[20]; //  DEFINIMOS TECLADOS 
+
+int stock_teclado[20];
+stock_teclado[0] = 1;
+stock_teclado[1] = 1;
+stock_teclado[2] = 1;
+
+typedef struct
+{
+    int id;
+    char marca[15];
+    char modelo[10];
+
+} estructura_mouse;
+
+estructura_mouse mouse[20]; // DEFINIMOS MOUSE
+
+
+typedef struct
+{
+    int id;
+    char marca[15];
+    char modelo[10];
+    int pulgadas; //! PULGADAS > 7
+
+} estructura_monitor;
+
+estructura_monitor monitor[20]; // DEFINIMOS MONITOR
+
+
+typedef struct
+{
+    int id;
+    char marca[15];
+    char modelo[10];
+    int ram; //! RAM SIEMPRE POTENCIA DE 2
+    char procesador;
+    int pulgadas; //! PULGADAS > 11
+
+} estructura_notebook;
+
+estructura_notebook note[20]; // DEFINIMOS NOTEBOOK
+
+typedef struct
+{
+    int id;
+    char marca[15];
+    char modelo[10];
+    int ram; //! RAM SIEMPRE POTENCIA DE 2
+    char procesador;
+    
+    estructura_teclado pc_teclado;
+    estructura_mouse pc_mouse;
+    estructura_monitor pc_monitor;
+
+} estructura_pc;
+
+estructura_pc pc[20]; // DEFINIMOS TORRE/PC
 
 typedef struct
 {
@@ -24,21 +90,15 @@ int login();
 void opciones();
 int main(int argc, char const *argv[])
 {
-    int bandera = 1, i; // MODIFICADO EL BANDERA = 1
+    int bandera = 1, i;
     system("title login inventario");
     llenar_user();
-    // mostrar_user();
-    // system("pause");
+
     do
     {
-        // ! quite los printf de aqui y los meti adentro de la funcion aunque son como mas generales yaque si falla contra o user 
-       // if (bandera == 1)
-        //    printf("Ingrese Contrasena del usuario\n"); // MODIFICADO //! creo aqui esta demas el if si es un do while,creoo
         bandera = login();
-        //system("cls");
 
-        //if (bandera == 1)
-           // printf("Contrasena incorrecta reingrese:\n"); // MODIFICADO
+
 
     } while (bandera == 1);
 
@@ -88,28 +148,11 @@ int login() // NUEVO LOGIN MODIFICADO
     int bandera = 1, i = -1, cont = 0, banderauser=1; // todo bandera vale menos 1 porque es un do while que suma 1 al i al inicio y para que i valga 0 al
     // todo empezar
     char bande; // todo bandera de character que sirve para que meta el enter
-    /*for (i = 0; i < 5; i++)
-    {
-        contra[i] = _getch();
-        if( contra[i] == 13)break;
-        printf("*");
-    }
-    */
+
     system("cls");
     printf("Ingrese su nombre de usuario\n");
     scanf("%s",usuario);
     fflush(stdin);
-    
-    //? leemos el usuario noma y luego la contra  y luego verificamos si una de las 2 fallo
-    /*banderauser=strncmp(usuario,user.nombreuser,6);
-        if (banderauser!=0)
-        {
-            system("cls");
-            printf("usuario incorrecto reingrese los datos nuevamente\n");
-            return 1;
-        }
-    */
-    
 
     // todo aqui ahora es un do while que lee hasta 5 characteres o termina si uno es enter
     printf("Ingrese su contrasena\n");
@@ -118,9 +161,9 @@ int login() // NUEVO LOGIN MODIFICADO
         i = i + 1;
         contra[i] = _getch();
         printf("*");
-        	//printf("valor de i %d\n",i);
+        	
     } while (i <= 3 && contra[i] != 13);
-	//printf("salio del bucle\n");
+	
 	// todo aqui si ingreso 5 characteres debe ingresar un enter para mandarlos , si ingreso 3 seria que ya metio un enter,
 	// todo y no se mete aqui
 	
@@ -144,7 +187,6 @@ int login() // NUEVO LOGIN MODIFICADO
         return 1;
     }
 
-    // todo aqui sigue igual
     for (i = 0; contra[i] != '\0'; i++)
     {
         if (contra[i] == user.contrasena[i])
@@ -164,39 +206,6 @@ int login() // NUEVO LOGIN MODIFICADO
         }
     }
 }
-
-/*int login()
-{
-
-    char contra, retry;
-    int i, j, bandera;
-    bandera = 1;
-    for (i = 0; i < 5; i++)
-    {
-        contra = _getch();
-        if (contra == user.contrasena[i])
-        {
-            bandera = 0;
-            system("cls");
-            for (j = 0; j < i + 1; j++)
-            {
-                printf("*");
-            }
-        }
-        else
-        {
-            system("cls");
-            bandera = 1;
-            printf("Error contrasena incorrecta\n");
-            printf("Ingrese tecla para reintentar\n");
-            retry = _getch();
-            system("cls");
-            break;
-        }
-    }
-    return bandera;
-}
-*/
 
 
 void opciones(){
@@ -224,6 +233,8 @@ void opciones(){
         switch(opcion){
 
             case 1:
+
+                addprod();
 
                 break;
             case 2:
@@ -268,3 +279,6 @@ void mostrar_user()
     printf("sus apellidos son %s %s\n", user.apellidop, user.apellidom);
     printf("y su id es %d\n", user.id);
 }
+
+
+
