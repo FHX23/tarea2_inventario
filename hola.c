@@ -211,6 +211,7 @@ void opciones(){
 //• Debe indicar la cantidad de existencias de cada producto.
     int opcion;
     do{
+        system("cls");
         printf("Ingrese su opcion\n");
         printf("1 agregar un producto\n");
         printf("2 actualizar un producto\n");
@@ -225,7 +226,7 @@ void opciones(){
         // ! sabemos siempre habra 3 minimo comentame cual es tu idea para  para saber en que posisicion vamos del
         // ! ejemplo teclado[i].marca como sabemos el i si esque elimino alguno o nose comentame tu idea
         
-        switch(opcion){
+        switch(opcion-48){
 
             case 1:
                 do
@@ -276,17 +277,18 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
 
     for(i = 0; i < 20; i++)
     {
-        switch(op)
+        switch(op-48)
         {
             case 1: //*TECLADO
                 if(teclado[i].stock == 0)
                 {
+                    system("cls");
                     teclado[i].stock = 1;
-                    printf("Ingrese la marca\n ");
+                    printf("Ingrese marca\n ");
                     gets(teclado[i].marca);
                     fflush(stdin);
 
-                    printf("Ingrese el modelo\n");
+                    printf("Ingrese modelo\n");
                     gets(teclado[i].modelo);
                     fflush(stdin);
 
@@ -297,11 +299,12 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
             case 2: //*MOUSE
                 if(mouse[i].stock == 0)
                 {
-                    printf("Ingrese la marca\n ");
+                    system("cls");
+                    printf("Ingrese marca\n ");
                     gets(mouse[i].marca);
                     fflush(stdin);
 
-                    printf("Ingrese el modelo\n");
+                    printf("Ingrese modelo\n");
                     gets(mouse[i].modelo);
                     fflush(stdin);
 
@@ -313,11 +316,12 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
             case 3: //*MONITOR
                 if(monitor[i].stock == 0)
                 {
-                    printf("Ingrese la marca\n ");
+                    system("cls");
+                    printf("Ingrese marca\n ");
                     gets(monitor[i].marca);
                     fflush(stdin);
 
-                    printf("Ingrese el modelo\n");
+                    printf("Ingrese modelo\n");
                     gets(monitor[i].modelo);
                     fflush(stdin);
 
@@ -329,11 +333,12 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
             case 4: //*NOTEBOOK
                 if(note[i].stock == 0)
                 {
-                    printf("Ingrese la marca\n ");
+                    system("cls");
+                    printf("Ingrese marca\n ");
                     gets(note[i].marca);
                     fflush(stdin);
 
-                    printf("Ingrese el modelo\n");
+                    printf("Ingrese modelo\n");
                     gets(note[i].modelo);
                     fflush(stdin);
 
@@ -345,10 +350,11 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
             case 5: //*PC ESCRITORIO
                 if(pc[i].stock == 0)
                 {
-                    printf("Ingrese la marca\n ");
+                    system("cls");
+                    printf("Ingrese marca\n ");
                     gets(pc[i].marca);
                     fflush(stdin);
-                    printf("Ingrese el modelo\n");
+                    printf("Ingrese modelo\n");
                     gets(pc[i].modelo);
                     fflush(stdin);
                     pc[i].stock = 1;
@@ -357,6 +363,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 
                 break;
             default:
+                system("cls");
                 printf("ERROR OPCION INVALIDA, REINGRESE DATO\n");
                 system("pause");
                 bandera = 1;
@@ -365,7 +372,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
 
         if( bandera == 1)break;//*BREAK PARA SALIR DEL FOR UNA VEZ HECHO EL LLENADO
     }
-    return op;//*DEVUELVO LA OPCION ESCOGIDA PARA REPETIR PROCESO O NO
+    return op-48;//*DEVUELVO LA OPCION ESCOGIDA PARA REPETIR PROCESO O NO
 }
 
 void lista_produc();//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS?
@@ -409,4 +416,3 @@ void mostrar_user()
     printf("sus apellidos son %s %s\n", user.apellidop, user.apellidom);
     printf("y su id es %d\n", user.id);
 }
-
