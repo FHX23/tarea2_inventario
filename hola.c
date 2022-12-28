@@ -4,6 +4,8 @@
 #include <conio.h>
 #include <unistd.h>
 
+
+// todo ***************************ESTRUCTURAS******************************************
 typedef struct
 {
     int id;
@@ -30,7 +32,7 @@ typedef struct
     int id;
     char marca[15];
     char modelo[10];
-    int pulgadas; //! PULGADAS > 7
+    float pulgadas; //! PULGADAS > 7
     int stock;
 } estructura_monitor;
 
@@ -43,7 +45,7 @@ typedef struct
     char modelo[10];
     int ram; //! RAM SIEMPRE POTENCIA DE 2
     char procesador;
-    int pulgadas; //! PULGADAS > 11
+    float pulgadas; //! PULGADAS > 11
     int stock;
 } estructura_notebook;
 
@@ -78,12 +80,16 @@ typedef struct
 
 usuario user;
 
+// todo ********************************************************************************
+
 void llenar_user();
 void llenar_datos_struct();
 void mostrar_user();
 int login();
-void opciones();
+void opciones(); //* MENU AGREGAR PROD 
+int sub_op() //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
 
+//todo ************************************ MAIN ****************************************
 int main(int argc, char const *argv[])
 {
     int bandera = 1, i;
@@ -127,14 +133,13 @@ int main(int argc, char const *argv[])
     printf(" | | | | \\ V /  __/ | | | || (_| | |  | | (_) |\n");
     printf(" |_|_| |_|\\_/ \\___|_| |_|\\__\\__,_|_|  |_|\\___/ \n");
     system("pause");
-
     system("cls");
 
     opciones();
-
     system("pause");
     return 0;
 }
+// todo ********************************************************************************
 
 int login() // NUEVO LOGIN MODIFICADO
 {
@@ -157,7 +162,7 @@ int login() // NUEVO LOGIN MODIFICADO
         i = i + 1;
         contra[i] = _getch();
         printf("*");
-        	
+
     } while (i <= 3 && contra[i] != 13);
 	
 	// todo aqui si ingreso 5 characteres debe ingresar un enter para mandarlos , si ingreso 3 seria que ya metio un enter,
@@ -178,8 +183,8 @@ int login() // NUEVO LOGIN MODIFICADO
     if (banderauser != 0)
     {
         system("cls");
-    	printf("datos incorrectos, reingrese los datos nuevamente\n");
-    	system("pause");
+        printf("datos incorrectos, reingrese los datos nuevamente\n");
+        system("pause");
         return 1;
     }
 
@@ -230,7 +235,14 @@ void opciones(){
 
             case 1:
 
-                addprod();
+                do
+                {
+                    opcion = sub_op();
+                    if(opcion > 5 || opcion < 1)system("cls");
+
+                }while(opcion > 5 || opcion < 1);
+
+                produc(opcion);
 
                 break;
             case 2:
@@ -258,18 +270,128 @@ void opciones(){
 
 }
 
+
+int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
+{
+    int i, bandera = 0, op;
+
+    sytem("cls");
+    printf("Ingrese tipo de producto a agregar:\n");
+    printf("1 Teclado\n");
+    printf("2 Mouse\n");
+    printf("3 Monitor\n");
+    printf("4 Notebook\n");
+    printf("5 PC de escritorio\n");
+    op = _getch();
+    fflush(stdin);
+
+    for(i = 0; i < 20; i++)
+    {
+        switch(op)
+        {
+            case 1: //*TECLADO
+                if(teclado[i].stock == 0)
+                {
+                    teclado[i].stock = 1;
+                    printf("Ingrese la marca\n ");
+                    gets(teclado[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese el modelo\n");
+                    gets(teclado[i].modelo);
+                    fflush(stdin);
+
+                    bandera = 1;
+                }
+                
+                break;
+            case 2: //*MOUSE
+                if(mouse[i].stock == 0)
+                {
+                    printf("Ingrese la marca\n ");
+                    gets(mouse[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese el modelo\n");
+                    gets(mouse[i].modelo);
+                    fflush(stdin);
+
+                    mouse[i].stock = 1;
+                    bandera = 1;
+                }
+                
+                break;
+            case 3: //*MONITOR
+                if(monitor[i].stock == 0)
+                {
+                    printf("Ingrese la marca\n ");
+                    gets(monitor[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese el modelo\n");
+                    gets(monitor[i].modelo);
+                    fflush(stdin);
+
+                    monitor[i].stock = 1;
+                    bandera = 1;
+                }
+                
+                break;
+            case 4: //*NOTEBOOK
+                if(note[i].stock == 0)
+                {
+                    printf("Ingrese la marca\n ");
+                    gets(note[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese el modelo\n");
+                    gets(note[i].modelo);
+                    fflush(stdin);
+
+                    note[i].stock = 1;
+                    bandera = 1;
+                }
+                
+                break;
+            case 5: //*PC ESCRITORIO
+                if(pc[i].stock == 0)
+                {
+                    printf("Ingrese la marca\n ");
+                    gets(pc[i].marca);
+                    fflush(stdin);
+                    printf("Ingrese el modelo\n");
+                    gets(pc[i].modelo);
+                    fflush(stdin);
+                    pc[i].stock = 1;
+                    bandera = 1;
+                }
+                
+                break;
+            default:
+                printf("ERROR OPCION INVALIDA, REINGRESE DATO\n");
+                system("pause");
+                bandera = 1;
+                break;
+        }
+
+        if( bandera == 1)break;//*BREAK PARA SALIR DEL FOR UNA VEZ HECHO EL LLENADO
+    }
+    return op
+}
+
+
 void llenar_datos_struct(){
     int i;
     for(i=0; i<20; i++){
 
-        if(i==0 || i== 1 || i==2 ){
+        if(i==0 || i== 1 || i==2 ){ // * CONDICION PARA LLENAR STOCK SOLO LOS 3 PRIMEROS PRODUCTOS
 
             teclado[i].stock=1;
             mouse[i].stock=1;
             monitor[i].stock=1;
             note[i].stock=1;
             pc[i].stock=1;
-        }else{
+        }else{ // * LLENA LOS OTROS STOCK COMO 0
             teclado[i].stock=0;
             mouse[i].stock=0;
             monitor[i].stock=0;
@@ -281,14 +403,17 @@ void llenar_datos_struct(){
 // * en esta misma funcion llenar los 3 primeros datos tambiens agregar despues
 // ? ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨
 }
+
 void llenar_user()
 {
+
     user.id = 777;
     strcpy(user.nombres, "juanito alcachofa");
     strcpy(user.apellidom, "aguilera");
     strcpy(user.apellidop, "arenas");
     strcpy(user.nombreuser, "vegeta");
     strcpy(user.contrasena, "12345");
+
 }
 void mostrar_user()
 {
@@ -298,3 +423,7 @@ void mostrar_user()
     printf("y su id es %d\n", user.id);
 }
 
+void lista_produc()
+{
+
+}
