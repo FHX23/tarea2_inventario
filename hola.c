@@ -14,7 +14,6 @@ typedef struct
     char idioma[10];
     int stock;
 } estructura_teclado;
-
 estructura_teclado teclado[20]; //  DEFINIMOS TECLADOS 
 
 typedef struct
@@ -24,7 +23,6 @@ typedef struct
     char modelo[10];
     int stock;
 } estructura_mouse;
-
 estructura_mouse mouse[20]; // DEFINIMOS MOUSE
 
 typedef struct
@@ -35,7 +33,6 @@ typedef struct
     float pulgadas; //! PULGADAS > 7
     int stock;
 } estructura_monitor;
-
 estructura_monitor monitor[20]; // DEFINIMOS MONITOR
 
 typedef struct
@@ -48,7 +45,6 @@ typedef struct
     float pulgadas; //! PULGADAS > 11
     int stock;
 } estructura_notebook;
-
 estructura_notebook note[20]; // DEFINIMOS NOTEBOOK
 
 typedef struct
@@ -64,7 +60,6 @@ typedef struct
     estructura_monitor pc_monitor;
     int stock;
 } estructura_pc;
-
 estructura_pc pc[20]; // DEFINIMOS TORRE/PC
 
 
@@ -77,7 +72,6 @@ typedef struct
     char apellidop[10];
     char contrasena[5];
 } usuario;
-
 usuario user;
 
 // todo ********************************************************************************
@@ -86,8 +80,9 @@ void llenar_user();
 void llenar_datos_struct();
 void mostrar_user();
 int login();
+
 void opciones(); //* MENU AGREGAR PROD 
-int sub_op() //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
+int sub_op(); //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
 
 //todo ************************************ MAIN ****************************************
 int main(int argc, char const *argv[])
@@ -99,10 +94,7 @@ int main(int argc, char const *argv[])
     do
     {
         bandera = login();
-
-
-
-    } while (bandera == 1);
+    }while(bandera == 1);
 
     system("cls");
     printf("Cargando...\n");
@@ -226,7 +218,9 @@ void opciones(){
         printf("4 eliminar un producto\n");
         printf("5 buscar un producto por su marca\n");// de forma recursiva
         printf("6 cerrar progama\n");
-        opcion=_getch();
+        opcion = _getch(); //! ME DETECTA EL 1 COMO 49 Y [DEMAS NUMEROS COMO N + 48] NOSE PORQUE
+
+        
         // ! al entrar en el case llamamos una funcion 
         // ! sabemos siempre habra 3 minimo comentame cual es tu idea para  para saber en que posisicion vamos del
         // ! ejemplo teclado[i].marca como sabemos el i si esque elimino alguno o nose comentame tu idea
@@ -234,16 +228,11 @@ void opciones(){
         switch(opcion){
 
             case 1:
-
                 do
                 {
                     opcion = sub_op();
                     if(opcion > 5 || opcion < 1)system("cls");
-
                 }while(opcion > 5 || opcion < 1);
-
-                produc(opcion);
-
                 break;
             case 2:
 
@@ -260,7 +249,7 @@ void opciones(){
             case 6:
 
                 break;
-            default
+            default:
                 printf("ERROR OPCION INVALIDA, REINGRESE DATO\n");
                 break;
 
@@ -275,7 +264,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
 {
     int i, bandera = 0, op;
 
-    sytem("cls");
+    system("cls");
     printf("Ingrese tipo de producto a agregar:\n");
     printf("1 Teclado\n");
     printf("2 Mouse\n");
@@ -376,9 +365,10 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
 
         if( bandera == 1)break;//*BREAK PARA SALIR DEL FOR UNA VEZ HECHO EL LLENADO
     }
-    return op
+    return op;//*DEVUELVO LA OPCION ESCOGIDA PARA REPETIR PROCESO O NO
 }
 
+void lista_produc();//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS?
 
 void llenar_datos_struct(){
     int i;
@@ -403,17 +393,14 @@ void llenar_datos_struct(){
 // * en esta misma funcion llenar los 3 primeros datos tambiens agregar despues
 // ? ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨
 }
-
 void llenar_user()
 {
-
     user.id = 777;
     strcpy(user.nombres, "juanito alcachofa");
     strcpy(user.apellidom, "aguilera");
     strcpy(user.apellidop, "arenas");
     strcpy(user.nombreuser, "vegeta");
     strcpy(user.contrasena, "12345");
-
 }
 void mostrar_user()
 {
@@ -423,7 +410,3 @@ void mostrar_user()
     printf("y su id es %d\n", user.id);
 }
 
-void lista_produc()
-{
-
-}
