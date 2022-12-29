@@ -4,7 +4,9 @@
 #include <conio.h>
 #include <unistd.h>
 
+// ? id goblal parte en 700 y se le sube en 1 en 1
 
+int id=700; 
 // todo ***************************ESTRUCTURAS******************************************
 typedef struct
 {
@@ -395,8 +397,26 @@ void llenar_datos_struct(){
             monitor[i].stock=1;
             note[i].stock=1;
             pc[i].stock=1;
-
-
+            
+            // ? ids
+            
+            teclado[i].id=id;
+            id++;
+            mouse[i].id=id;
+            id++;
+            monitor[i].id=id;
+            id++;
+            note[i].id=id;
+            id++;
+            pc[i].id=id;
+            id++;
+            pc[i].pc_teclado.id=id;
+            id++;
+            pc[i].pc_monitor.id=id;
+            id++;
+            pc[i].pc_mouse.id=id;
+            id++;
+            
         // ? marcas 
         strcpy(teclado[i].marca, "Razer");
         strcpy(mouse[i].marca, "Razer");
