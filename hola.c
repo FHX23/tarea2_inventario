@@ -14,7 +14,7 @@ typedef struct
     char idioma[10];
     int stock;
 } estructura_teclado;
-estructura_teclado teclado[20]; //  DEFINIMOS TECLADOS 
+estructura_teclado teclado[20]; // * DEFINIMOS TECLADOS 
 
 typedef struct
 {
@@ -23,7 +23,7 @@ typedef struct
     char modelo[10];
     int stock;
 } estructura_mouse;
-estructura_mouse mouse[20]; // DEFINIMOS MOUSE
+estructura_mouse mouse[20]; // * DEFINIMOS MOUSE
 
 typedef struct
 {
@@ -33,7 +33,7 @@ typedef struct
     float pulgadas; //! PULGADAS > 7
     int stock;
 } estructura_monitor;
-estructura_monitor monitor[20]; // DEFINIMOS MONITOR
+estructura_monitor monitor[20]; // * DEFINIMOS MONITOR
 
 typedef struct
 {
@@ -45,7 +45,7 @@ typedef struct
     float pulgadas; //! PULGADAS > 11
     int stock;
 } estructura_notebook;
-estructura_notebook note[20]; // DEFINIMOS NOTEBOOK
+estructura_notebook note[20]; // * DEFINIMOS NOTEBOOK
 
 typedef struct
 {
@@ -60,7 +60,7 @@ typedef struct
     estructura_monitor pc_monitor;
     int stock;
 } estructura_pc;
-estructura_pc pc[20]; // DEFINIMOS TORRE/PC
+estructura_pc pc[20]; // * DEFINIMOS TORRE/PC
 
 
 typedef struct
@@ -375,10 +375,17 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
     return op-48;//*DEVUELVO LA OPCION ESCOGIDA PARA REPETIR PROCESO O NO
 }
 
-void lista_produc();//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS?
+void lista_produc();//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS? 
+
+// ! yo digo pidamos que tipo 
+// ! que mostremos todos los que esten noma como son 20 no serian tantoos 
+// ! y decir al final cuantos del tipo tenemos 
+//! asi mostrar lso 5 teclados y decir que hay 5
+ 
 
 void llenar_datos_struct(){
     int i;
+    //! faltan los ids
     for(i=0; i<20; i++){
 
         if(i==0 || i== 1 || i==2 ){ // * CONDICION PARA LLENAR STOCK SOLO LOS 3 PRIMEROS PRODUCTOS
@@ -388,6 +395,47 @@ void llenar_datos_struct(){
             monitor[i].stock=1;
             note[i].stock=1;
             pc[i].stock=1;
+
+
+        // ? marcas 
+        strcpy(teclado[i].marca, "Razer");
+        strcpy(mouse[i].marca, "Razer");
+        strcpy(monitor[i].marca, "MSI");
+        strcpy(note[i].marca, "MSI");
+        strcpy(pc[i].marca, "MSI");
+
+        // ! creo asi es para asignarla a la estructura de la estructura su marca
+        strcpy(pc[i].teclado.marca, "Razer");
+        strcpy(pc[i].monitor.marca, "MSI");
+        strcpy(pc[i].mouse.marca, "Razer");
+
+        // ? modelos 
+        strcpy(teclado[i].modelo, "BLACKWIDOW");
+        strcpy(mouse[i].modelo, "");
+        strcpy(monitor[i].modelo, "Optix G271");
+        strcpy(note[i].modelo, "Crosshair 15 ");
+        strcpy(pc[i].modelo, "nose que poner aqui ");// ! nose que ponerle a un modelo de pc 
+
+        strcpy(pc[i].teclado.modelo, "BLACKWIDOW");
+        strcpy(pc[i].monitor.modelo, "Optix G271");
+        strcpy(pc[i].mouse.modelo, "Razer Viper");
+
+        // ? idioma solo teclados
+        strcpy(teclado[i].idioma, "Ingles");
+        strcpy(pc[i].teclado.idioma, "Ingles");
+
+        //? pulgadas note y monitor
+        monitor[i].pulgadas=19;
+        note[i].pulgadas=16;
+        pc[i].monitor.pulgadas=20;
+
+        //? rams y procesador note y pc 
+        note[i].ram=8;
+        pc[i].ram=16;
+        strcpy(pc[i].procesador, "I9 9900K");
+        strcpy(note[i].procesador "I5 10300H");
+
+
         }else{ // * LLENA LOS OTROS STOCK COMO 0
             teclado[i].stock=0;
             mouse[i].stock=0;
@@ -396,9 +444,6 @@ void llenar_datos_struct(){
             pc[i].stock=0;
         }
     }
-
-// * en esta misma funcion llenar los 3 primeros datos tambiens agregar despues
-// ? ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨
 }
 void llenar_user()
 {
