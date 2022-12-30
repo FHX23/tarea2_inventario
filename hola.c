@@ -83,6 +83,7 @@ void llenar_datos_struct();
 void mostrar_user();
 int login();
 
+void lista_produc();
 void opciones(); //* MENU AGREGAR PROD 
 int sub_op(); //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
 
@@ -139,7 +140,7 @@ int login() // NUEVO LOGIN MODIFICADO
 {
 
     char contra[5];
-    char usuario[6];
+    char usuario[11];
     int bandera = 1, i = -1, cont = 0, banderauser=1; // todo bandera vale menos 1 porque es un do while que suma 1 al i al inicio y para que i valga 0 al
     // todo empezar
     char bande; // todo bandera de character que sirve para que meta el enter
@@ -173,7 +174,20 @@ int login() // NUEVO LOGIN MODIFICADO
     // ! verificacion del usuario
     // todo aqui leeo el usuario con gets, pregunto si es igual al de la base de dato"""
     // todo si es igual pasa a la contrasena sino returna 1 y printea que reingrese los datos
-    banderauser = strncmp(usuario,user.nombreuser,6);
+    cont = 0;
+    for (i = 0; user.nombreuser[i] != '\0'; i++)
+    {
+        if (usuario[i] != user.nombreuser[i])
+        {
+            system("cls");
+            printf("datos incorrectos, reingrese los datos nuevamente\n");
+            system("pause");
+            return 1;
+        }
+    }
+
+    /*
+    banderauser = strncmp(usuario, user.nombreuser, 6);
     if (banderauser != 0)
     {
         system("cls");
@@ -181,8 +195,10 @@ int login() // NUEVO LOGIN MODIFICADO
         system("pause");
         return 1;
     }
+    */
 
-    for (i = 0; contra[i] != '\0'; i++)
+    cont = 0;
+    for (i = 0; user.contrasena[i] != '\0'; i++)
     {
         if (contra[i] == user.contrasena[i])
         {
@@ -241,7 +257,8 @@ void opciones(){
 
                 break;
             case 3:
-
+                system("cls");
+                lista_produc();
                 break;
             case 4:
 
@@ -254,6 +271,7 @@ void opciones(){
                 break;
             default:
                 printf("ERROR OPCION INVALIDA, REINGRESE DATO\n");
+                system("pause");
                 break;
 
         }
@@ -377,7 +395,29 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
     return op-48;//*DEVUELVO LA OPCION ESCOGIDA PARA REPETIR PROCESO O NO
 }
 
-void lista_produc();//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS? 
+void lista_produc()
+{
+    int i;
+    printf("********************** TECLADOS *********************\n");
+    printf("ID     MARCA      MODELO           IDIOMA       STOCK\n");
+    
+    for( i = 0; i < 20; i++)
+    {
+        if (teclado[i].stock != 0)
+        {
+            
+            printf("%d", teclado[i].id);
+            printf("%s", teclado[i].marca);
+            printf("%s", teclado[i].modelo);
+            printf("%s",teclado[i].idioma);
+            printf("%d", teclado[i].stock );
+            printf("\n----------------------------------------------------- \n");
+        }
+    }
+
+    system("pause");
+    
+}//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS? 
 
 // ! yo digo pidamos que tipo 
 // ! que mostremos todos los que esten noma como son 20 no serian tantoos 
@@ -418,44 +458,46 @@ void llenar_datos_struct(){
             id++;
             
         // ? marcas 
-        strcpy(teclado[i].marca, "Razer");
-        strcpy(mouse[i].marca, "Razer");
-        strcpy(monitor[i].marca, "MSI");
-        strcpy(note[i].marca, "MSI");
-        strcpy(pc[i].marca, "MSI");
+            strcpy(teclado[i].marca, "Razer");
+            strcpy(mouse[i].marca, "Razer");
+            strcpy(monitor[i].marca, "MSI");
+            strcpy(note[i].marca, "MSI");
+            strcpy(pc[i].marca, "MSI");
 
-        // ! creo asi es para asignarla a la estructura de la estructura su marca
-        strcpy(pc[i].teclado.marca, "Razer");
-        strcpy(pc[i].monitor.marca, "MSI");
-        strcpy(pc[i].mouse.marca, "Razer");
+            // ! creo asi es para asignarla a la estructura de la estructura su marca
+            strcpy(pc[i].pc_teclado.marca, "Razer");
+            strcpy(pc[i].pc_monitor.marca, "MSI");
+            strcpy(pc[i].pc_mouse.marca, "Razer");
 
-        // ? modelos 
-        strcpy(teclado[i].modelo, "BLACKWIDOW");
-        strcpy(mouse[i].modelo, "");
-        strcpy(monitor[i].modelo, "Optix G271");
-        strcpy(note[i].modelo, "Crosshair 15 ");
-        strcpy(pc[i].modelo, "nose que poner aqui ");// ! nose que ponerle a un modelo de pc 
+            // ? modelos 
+            strcpy(teclado[i].modelo, "BLACKWIDOW");
+            printf("%s\n", teclado[i].modelo);//! aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-        strcpy(pc[i].teclado.modelo, "BLACKWIDOW");
-        strcpy(pc[i].monitor.modelo, "Optix G271");
-        strcpy(pc[i].mouse.modelo, "Razer Viper");
+            strcpy(mouse[i].modelo, "Viper");
+            strcpy(monitor[i].modelo, "Optix G271");
+            strcpy(note[i].modelo, "Crosshair 15 ");
+            strcpy(pc[i].modelo, "nose que poner aqui ");// ! nose que ponerle a un modelo de pc 
 
-        // ? idioma solo teclados
-        strcpy(teclado[i].idioma, "Ingles");
-        strcpy(pc[i].teclado.idioma, "Ingles");
+            strcpy(pc[i].pc_teclado.modelo, "BLACKWIDOW");
+            strcpy(pc[i].pc_monitor.modelo, "Optix G271");
+            strcpy(pc[i].pc_mouse.modelo, "Razer Viper");
 
-        //? pulgadas note y monitor
-        monitor[i].pulgadas=19;
-        note[i].pulgadas=16;
-        pc[i].monitor.pulgadas=20;
+            // ? idioma solo teclados
+            strcpy(teclado[i].idioma, "Ingles");
+            printf("%s\n", teclado[i].modelo);//! aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-        //? rams y procesador note y pc 
-        note[i].ram=8;
-        pc[i].ram=16;
-        strcpy(pc[i].procesador, "I9 9900K");
-        strcpy(note[i].procesador "I5 10300H");
+            strcpy(pc[i].pc_teclado.idioma, "Ingles");
 
+            //? pulgadas note y monitor
+            monitor[i].pulgadas=19;
+            note[i].pulgadas=16;
+            pc[i].pc_monitor.pulgadas=20;
 
+            //? rams y procesador note y pc 
+            note[i].ram=8;
+            pc[i].ram=16;
+            strcpy(pc[i].procesador, "I9 9900K");
+            strcpy(note[i].procesador, "I5 10300H");
         }else{ // * LLENA LOS OTROS STOCK COMO 0
             teclado[i].stock=0;
             mouse[i].stock=0;
