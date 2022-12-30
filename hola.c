@@ -303,6 +303,8 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 if(teclado[i].stock == 0)
                 {
                     system("cls");
+			 teclado[i].id=id;
+            		id++;
                     teclado[i].stock = 1;
                     printf("Ingrese marca\n ");
                     gets(teclado[i].marca);
@@ -327,7 +329,9 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     printf("Ingrese modelo\n");
                     gets(mouse[i].modelo);
                     fflush(stdin);
-
+			
+ 			mouse[i].id=id;
+            		id++;
                     mouse[i].stock = 1;
                     bandera = 1;
                 }
@@ -344,7 +348,8 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     printf("Ingrese modelo\n");
                     gets(monitor[i].modelo);
                     fflush(stdin);
-
+			 monitor[i].id=id;
+           		 id++;
                     monitor[i].stock = 1;
                     bandera = 1;
                 }
@@ -361,7 +366,8 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     printf("Ingrese modelo\n");
                     gets(note[i].modelo);
                     fflush(stdin);
-
+			 note[i].id=id;
+           	 id++;
                     note[i].stock = 1;
                     bandera = 1;
                 }
@@ -377,6 +383,8 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     printf("Ingrese modelo\n");
                     gets(pc[i].modelo);
                     fflush(stdin);
+ 			pc[i].id=id;
+         	   id++;
                     pc[i].stock = 1;
                     bandera = 1;
                 }
