@@ -43,7 +43,7 @@ typedef struct
     char marca[15];
     char modelo[10];
     int ram; //! RAM SIEMPRE POTENCIA DE 2
-    char procesador;
+    char procesador[15]; //todo AGREGO EL [15]
     float pulgadas; //! PULGADAS > 11
     int stock;
 } estructura_notebook;
@@ -55,7 +55,7 @@ typedef struct
     char marca[15];
     char modelo[10];
     int ram; //! RAM SIEMPRE POTENCIA DE 2
-    char procesador;
+    char procesador[15]; //todo AGREGO EL [15]
     
     estructura_teclado pc_teclado;
     estructura_mouse pc_mouse;
@@ -82,6 +82,11 @@ void llenar_user();
 void llenar_datos_struct();
 void mostrar_user();
 int login();
+
+void llenar_teclado(int i, int a);
+void llenar_mouse(int i, int a);
+void llenar_monitor(int i, int a);
+
 
 void lista_produc();
 void opciones(); //* MENU AGREGAR PROD 
@@ -223,11 +228,12 @@ void opciones(){
 
     // ! dime si las opciones estan bien 
     //Debe poder agregar un producto, actualizar un producto, listar los productos y eliminar un
-//producto (CRUD).
-//• Debe poder realizar una búsqueda por la marca del producto.
-//• Debe contar con un menú para poder realizar las operaciones mencionadas.
-//• Debe indicar la cantidad de existencias de cada producto.
-    int opcion;
+    //producto (CRUD).
+    //• Debe poder realizar una búsqueda por la marca del producto.
+    //• Debe contar con un menú para poder realizar las operaciones mencionadas.
+    //• Debe indicar la cantidad de existencias de cada producto.
+
+    int opcion, bandera = 0;
     do{
         system("cls");
         printf("Ingrese su opcion\n");
@@ -261,23 +267,25 @@ void opciones(){
                 lista_produc();
                 break;
             case 4:
-
+                
                 break;
             case 5:
 
                 break;
             case 6:
-
+                bandera = 1;
                 break;
             default:
                 printf("ERROR OPCION INVALIDA, REINGRESE DATO\n");
                 system("pause");
                 break;
-
         }
-
+        if(bandera == 1)
+        {
+            printf("SALIENDO CON EXITO DEL PROGRAMA\n");
+            break;
+        }
     }while(opcion !=6);
-
 }
 
 
@@ -294,7 +302,6 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
     printf("5 PC de escritorio\n");
     op = _getch();
     fflush(stdin);
-
     for(i = 0; i < 20; i++)
     {
         switch(op-48)
@@ -303,18 +310,10 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 if(teclado[i].stock == 0)
                 {
                     system("cls");
-			 teclado[i].id=id;
-            		id++;
-                    teclado[i].stock = 1;
-                    printf("Ingrese marca\n ");
-                    gets(teclado[i].marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo\n");
-                    gets(teclado[i].modelo);
-                    fflush(stdin);
-
+                    llenar_teclado(i, 0);
+                    system("pause");
                     bandera = 1;
+                    if(i == 20 && teclado[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -322,18 +321,10 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 if(mouse[i].stock == 0)
                 {
                     system("cls");
-                    printf("Ingrese marca\n ");
-                    gets(mouse[i].marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo\n");
-                    gets(mouse[i].modelo);
-                    fflush(stdin);
-			
- 			mouse[i].id=id;
-            		id++;
-                    mouse[i].stock = 1;
+                    llenar_mouse(i, 0);
+                    system("pause");
                     bandera = 1;
+                    if(i == 20 && mouse[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -341,17 +332,10 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 if(monitor[i].stock == 0)
                 {
                     system("cls");
-                    printf("Ingrese marca\n ");
-                    gets(monitor[i].marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo\n");
-                    gets(monitor[i].modelo);
-                    fflush(stdin);
-			 monitor[i].id=id;
-           		 id++;
-                    monitor[i].stock = 1;
+                    llenar_monitor(i, 0);
+                    system("pause");
                     bandera = 1;
+                    if(i == 20 && monitor[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -359,6 +343,9 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 if(note[i].stock == 0)
                 {
                     system("cls");
+                    note[i].id=id;
+                    id++;
+                    note[i].stock = 1;
                     printf("Ingrese marca\n ");
                     gets(note[i].marca);
                     fflush(stdin);
@@ -366,10 +353,22 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     printf("Ingrese modelo\n");
                     gets(note[i].modelo);
                     fflush(stdin);
-			 note[i].id=id;
-           	 id++;
-                    note[i].stock = 1;
+
+                    printf("Ingrese memoria ram\n") //?MINIMO 2?
+                    scanf("%d", note[i].ram); //!FALTA VALIDACION
+                    fflush(stdin);
+
+                    prinft("Ingrese procesador\n");
+                    gets(note[i].procesador);
+                    fflush(stdin);
+
+                    printf("Ingrese tamano en pulgadas");
+                    scanf("%d", note[i].pulgadas); //!FALTA VALIDACION
+                    fflush(stdin);
+
+                    system("pause");
                     bandera = 1;
+                    if(i == 20 && note[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -377,16 +376,28 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 if(pc[i].stock == 0)
                 {
                     system("cls");
+                    pc[i].id=id;
+                    id++;
+                    pc[i].stock = 1;
+
                     printf("Ingrese marca\n ");
                     gets(pc[i].marca);
                     fflush(stdin);
                     printf("Ingrese modelo\n");
                     gets(pc[i].modelo);
                     fflush(stdin);
- 			pc[i].id=id;
-         	   id++;
-                    pc[i].stock = 1;
+
+                    printf("Ingrese memoria ram\n") //?MINIMO 2?
+                    scanf("%d", pc[i].ram); //!FALTA VALIDACION
+                    fflush(stdin);
+
+                    prinft("Ingrese procesador\n");
+                    gets(pc[i].procesador);
+                    fflush(stdin);
+
+                    system("pause");
                     bandera = 1;
+                    if(i == 20 && pc[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -399,30 +410,132 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
         }
 
         if( bandera == 1)break;//*BREAK PARA SALIR DEL FOR UNA VEZ HECHO EL LLENADO
+        
     }
     return op-48;//*DEVUELVO LA OPCION ESCOGIDA PARA REPETIR PROCESO O NO
 }
+
+void llenar_teclado(int i, int a)//todo ESTO ES PARA DIVIDIR TECLADO DE PC_TECLADO
+{
+    teclado[i].id=id;
+    id++;
+    teclado[i].stock = 1;
+    printf("Ingrese marca\n ");
+    if(a != 0)
+    {
+        gets(teclado[i].marca);
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        gets(pc[i].pc_teclado.marca);
+        fflush(stdin);
+    }
+    printf("Ingrese modelo\n");
+    if(a != 0)
+    {
+        gets(teclado[i].modelo);
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        gets(pc[i].pc_teclado.modelo);
+        fflush(stdin);
+    }
+    printf("Ingrese Idioma\n");
+    if(a != 0)
+    {
+        gets(teclado[i].idioma);
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        gets(pc[i].pc_teclado.idioma);
+        fflush(stdin);
+    }
+}
+
+void llenar_mouse(int i, int a)//todo ESTO ES PARA DIVIDIR MOUSE DE PC_TECLADO
+{
+    mouse[i].id=id;
+    id++;
+    mouse[i].stock = 1;
+    printf("Ingrese marca\n ");
+    if(a != 0)
+    {
+        gets(mouse[i].marca);
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        gets(pc[i].pc_mouse.marca);
+        fflush(stdin);
+    }
+    printf("Ingrese modelo\n");
+    if(a != 0)
+    {
+        gets(mouse[i].modelo);
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        gets(pc[i].pc_mouse.modelo);
+        fflush(stdin);
+    }
+}
+
+void llenar_monitor(int i, int a)
+{
+    monitor[i].id=id;
+    id++;
+    monitor[i].stock = 1;
+
+    printf("Ingrese marca\n ");
+    if(a != 0)
+    {
+        gets(monitor[i].marca);
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        gets(pc[i].pc_monitor.marca);
+        fflush(stdin);
+    }
+    printf("Ingrese modelo\n");
+    if(a != 0)
+    {
+        gets(monitor[i].modelo);
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        gets(pc[i].pc_monitor.modelo);
+        fflush(stdin);
+    }
+    printf("Ingrese pulgadas\n");
+    if(a != 0)
+    {
+        scanf("%f", monitor[i].pulgadas); //!FALTA VALIDACION
+        fflush(stdin);
+    }else//todo ESTO ES PC
+    {
+        scanf("%f", pc[i].pc_monitor.pulgadas); //!FALTA VALIDACION
+        fflush(stdin);
+    }
+}
+
 
 void lista_produc()
 {
     int i;
     printf("********************** TECLADOS *********************\n");
     printf("ID     MARCA      MODELO           IDIOMA       STOCK\n");
-    
     for( i = 0; i < 20; i++)
     {
         if (teclado[i].stock != 0)
         {
             
-            printf("%d", teclado[i].id);
-            printf("%s", teclado[i].marca);
-            printf("%s", teclado[i].modelo);
-            printf("%s",teclado[i].idioma);
-            printf("%d", teclado[i].stock );
+            printf("%d  ", teclado[i].id);
+            printf("%s  ", teclado[i].marca);
+            printf("%s  ", teclado[i].modelo);
+            printf("%s  ",teclado[i].idioma);
+            printf("%d  ", teclado[i].stock );
             printf("\n----------------------------------------------------- \n");
         }
     }
-
     system("pause");
     
 }//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS? 
@@ -484,7 +597,7 @@ void llenar_datos_struct(){
             strcpy(mouse[i].modelo, "Viper");
             strcpy(monitor[i].modelo, "Optix G271");
             strcpy(note[i].modelo, "Crosshair 15 ");
-            strcpy(pc[i].modelo, "nose que poner aqui ");// ! nose que ponerle a un modelo de pc 
+            strcpy(pc[i].modelo, "gaming xc");// ! nose que ponerle a un modelo de pc 
 
             strcpy(pc[i].pc_teclado.modelo, "BLACKWIDOW");
             strcpy(pc[i].pc_monitor.modelo, "Optix G271");
