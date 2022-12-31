@@ -152,7 +152,7 @@ int login() // NUEVO LOGIN MODIFICADO
 
     system("cls");
     printf("Ingrese su nombre de usuario\n");
-    scanf("%s",usuario);
+    gets(usuario);
     fflush(stdin);
 
     // todo aqui ahora es un do while que lee hasta 5 characteres o termina si uno es enter
@@ -354,16 +354,16 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     gets(note[i].modelo);
                     fflush(stdin);
 
-                    printf("Ingrese memoria ram\n") //?MINIMO 2?
-                    scanf("%d", note[i].ram); //!FALTA VALIDACION
+                    printf("Ingrese memoria ram\n"); //?MINIMO 2?
+                    scanf("%d", &note[i].ram); //!FALTA VALIDACION
                     fflush(stdin);
 
-                    prinft("Ingrese procesador\n");
+                    printf("Ingrese procesador\n");
                     gets(note[i].procesador);
                     fflush(stdin);
 
                     printf("Ingrese tamano en pulgadas");
-                    scanf("%d", note[i].pulgadas); //!FALTA VALIDACION
+                    scanf("%d", &note[i].pulgadas); //!FALTA VALIDACION
                     fflush(stdin);
 
                     system("pause");
@@ -387,14 +387,17 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     gets(pc[i].modelo);
                     fflush(stdin);
 
-                    printf("Ingrese memoria ram\n") //?MINIMO 2?
-                    scanf("%d", pc[i].ram); //!FALTA VALIDACION
+                    printf("Ingrese memoria ram\n"); //?MINIMO 2?
+                    scanf("%d", &pc[i].ram); //!FALTA VALIDACION
                     fflush(stdin);
 
-                    prinft("Ingrese procesador\n");
+                    printf("Ingrese procesador\n");
                     gets(pc[i].procesador);
                     fflush(stdin);
 
+                    llenar_teclado(i, 1);
+                    llenar_mouse(i, 1);
+                    llenar_monitor(i, 1);
                     system("pause");
                     bandera = 1;
                     if(i == 20 && pc[i].stock != 0)printf("STOCK LLENO");
@@ -508,11 +511,11 @@ void llenar_monitor(int i, int a)
     printf("Ingrese pulgadas\n");
     if(a != 0)
     {
-        scanf("%f", monitor[i].pulgadas); //!FALTA VALIDACION
+        scanf("%f", &monitor[i].pulgadas); //!FALTA VALIDACION
         fflush(stdin);
     }else//todo ESTO ES PC
     {
-        scanf("%f", pc[i].pc_monitor.pulgadas); //!FALTA VALIDACION
+        scanf("%f", &pc[i].pc_monitor.pulgadas); //!FALTA VALIDACION
         fflush(stdin);
     }
 }
