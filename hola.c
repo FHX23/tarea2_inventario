@@ -5,8 +5,8 @@
 #include <unistd.h>
 
 // ? id goblal parte en 700 y se le sube en 1 en 1
-
 int id=700; 
+
 // todo ***************************ESTRUCTURAS******************************************
 typedef struct
 {
@@ -92,6 +92,7 @@ void lista_produc();
 void opciones(); //* MENU AGREGAR PROD 
 int sub_op(); //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
 
+int actualizar_productos();
 //todo ************************************ MAIN ****************************************
 int main(int argc, char const *argv[])
 {
@@ -99,6 +100,7 @@ int main(int argc, char const *argv[])
     system("title login inventario");
     llenar_user();
     llenar_datos_struct();
+    /*
     do
     {
         bandera = login();
@@ -111,9 +113,8 @@ int main(int argc, char const *argv[])
         printf("\r%d%%", i);
         usleep(100000); //! manda warning pero solo en visual estudio en devc del profe todo oki
     }
-    system("title vegeta 777");
+    system("title vegeta");
     system("cls");
-    printf("se a entrada a la matrix\n");
     printf(" .----------------.  .----------------.  .----------------. \n");
     printf("| .--------------. || .--------------. || .--------------. |\n");
     printf("| |  ________    | || |    ___       | || | ____    ____ | |\n");
@@ -134,7 +135,7 @@ int main(int argc, char const *argv[])
     printf(" |_|_| |_|\\_/ \\___|_| |_|\\__\\__,_|_|  |_|\\___/ \n");
     system("pause");
     system("cls");
-
+*/
     opciones();
     system("pause");
     return 0;
@@ -191,24 +192,13 @@ int login() // NUEVO LOGIN MODIFICADO
         }
     }
 
-    /*
-    banderauser = strncmp(usuario, user.nombreuser, 6);
-    if (banderauser != 0)
-    {
-        system("cls");
-        printf("datos incorrectos, reingrese los datos nuevamente\n");
-        system("pause");
-        return 1;
-    }
-    */
-
     cont = 0;
-    for (i = 0; user.contrasena[i] != '\0'; i++)
+    for (i = 0; i<5; i++)
     {
         if (contra[i] == user.contrasena[i])
         {
             cont = cont + 1;
-            if (cont == 5)
+            if (cont == 5 && contra[i+1]== 13)
             {
                 return 0;
             }
@@ -226,7 +216,6 @@ int login() // NUEVO LOGIN MODIFICADO
 
 void opciones(){
 
-    // ! dime si las opciones estan bien 
     //Debe poder agregar un producto, actualizar un producto, listar los productos y eliminar un
     //producto (CRUD).
     //• Debe poder realizar una búsqueda por la marca del producto.
@@ -260,7 +249,7 @@ void opciones(){
                 }while(opcion > 5 || opcion < 1);
                 break;
             case 2:
-
+                actualizar_productos();
                 break;
             case 3:
                 system("cls");
@@ -354,17 +343,32 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     gets(note[i].modelo);
                     fflush(stdin);
 
-                    printf("Ingrese memoria ram\n"); //?MINIMO 2?
-                    scanf("%d", &note[i].ram); //!FALTA VALIDACION
-                    fflush(stdin);
+                    // ? ram minimo 2
+                    do
+                    {
+                        printf("Ingrese memoria ram\n");
+                        scanf("%d", &note[i].ram);
+                        fflush(stdin);
+                        if (note[i].ram<2);
+                        {
+                            printf("Dato erroneo, reingrese dato\n");
+                        }
+                        
+                    } while (note[i].ram<2);
 
                     printf("Ingrese procesador\n");
                     gets(note[i].procesador);
                     fflush(stdin);
 
-                    printf("Ingrese tamano en pulgadas");
-                    scanf("%d", &note[i].pulgadas); //!FALTA VALIDACION
-                    fflush(stdin);
+                    do{   
+                        printf("Ingrese pulgadas\n");
+                        scanf("%f", &note[i].pulgadas); 
+                        fflush(stdin);
+                        if (note[i].pulgadas<7)
+                        {
+                            printf("Pulgadas no validos, reingrese el dato\n");
+                        }
+                    } while (note[i].pulgadas<7);
 
                     system("pause");
                     bandera = 1;
@@ -387,9 +391,20 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     gets(pc[i].modelo);
                     fflush(stdin);
 
-                    printf("Ingrese memoria ram\n"); //?MINIMO 2?
-                    scanf("%d", &pc[i].ram); //!FALTA VALIDACION
-                    fflush(stdin);
+                     //?MINIMO 2? // bueno
+                     //!FALTA VALIDACION
+                    do
+                    {
+                        printf("Ingrese memoria ram\n");
+                        scanf("%d", &pc[i].ram);
+                        fflush(stdin);
+                        if (pc[i].ram<2);
+                        {
+                            printf("Dato erroneo, reingrese dato\n");
+                        }
+                        
+                    } while (pc[i].ram<2);
+                    
 
                     printf("Ingrese procesador\n");
                     gets(pc[i].procesador);
@@ -508,15 +523,32 @@ void llenar_monitor(int i, int a)
         gets(pc[i].pc_monitor.modelo);
         fflush(stdin);
     }
-    printf("Ingrese pulgadas\n");
+    
     if(a != 0)
     {
-        scanf("%f", &monitor[i].pulgadas); //!FALTA VALIDACION
-        fflush(stdin);
+        do
+        {   
+            printf("Ingrese pulgadas\n");
+            scanf("%f", &monitor[i].pulgadas); 
+            fflush(stdin);
+            if (monitor[i].pulgadas<7)
+            {
+                printf("Pulgadas no validos, reingrese el dato\n");
+            }
+            
+        } while (monitor[i].pulgadas<7);
     }else//todo ESTO ES PC
     {
-        scanf("%f", &pc[i].pc_monitor.pulgadas); //!FALTA VALIDACION
-        fflush(stdin);
+        do
+        {   
+            printf("Ingrese pulgadas\n");
+            scanf("%f", &pc[i].pc_monitor.pulgadas); 
+            fflush(stdin);
+            if (pc[i].pc_monitor.pulgadas<7)
+            {
+                printf("Pulgadas no validos, reingrese el dato\n");
+            }
+        } while (pc[i].pc_monitor.pulgadas<7);
     }
 }
 
@@ -541,17 +573,10 @@ void lista_produc()
     }
     system("pause");
     
-}//! DE QUE FORMA MOSTRAMOS LA LISTA DE PRODUCTOS? 
-
-// ! yo digo pidamos que tipo 
-// ! que mostremos todos los que esten noma como son 20 no serian tantoos 
-// ! y decir al final cuantos del tipo tenemos 
-//! asi mostrar lso 5 teclados y decir que hay 5
- 
+}
 
 void llenar_datos_struct(){
     int i;
-    //! faltan los ids
     for(i=0; i<20; i++){
 
         if(i==0 || i== 1 || i==2 ){ // * CONDICION PARA LLENAR STOCK SOLO LOS 3 PRIMEROS PRODUCTOS
@@ -588,7 +613,7 @@ void llenar_datos_struct(){
             strcpy(note[i].marca, "MSI");
             strcpy(pc[i].marca, "MSI");
 
-            // ! creo asi es para asignarla a la estructura de la estructura su marca
+
             strcpy(pc[i].pc_teclado.marca, "Razer");
             strcpy(pc[i].pc_monitor.marca, "MSI");
             strcpy(pc[i].pc_mouse.marca, "Razer");
@@ -600,7 +625,7 @@ void llenar_datos_struct(){
             strcpy(mouse[i].modelo, "Viper");
             strcpy(monitor[i].modelo, "Optix G271");
             strcpy(note[i].modelo, "Crosshair 15 ");
-            strcpy(pc[i].modelo, "gaming xc");// ! nose que ponerle a un modelo de pc 
+            strcpy(pc[i].modelo, "gaming xc");
 
             strcpy(pc[i].pc_teclado.modelo, "BLACKWIDOW");
             strcpy(pc[i].pc_monitor.modelo, "Optix G271");
@@ -622,6 +647,7 @@ void llenar_datos_struct(){
             pc[i].ram=16;
             strcpy(pc[i].procesador, "I9 9900K");
             strcpy(note[i].procesador, "I5 10300H");
+
         }else{ // * LLENA LOS OTROS STOCK COMO 0
             teclado[i].stock=0;
             mouse[i].stock=0;
@@ -631,6 +657,97 @@ void llenar_datos_struct(){
         }
     }
 }
+
+int actualizar_productos(){
+
+    int op,i;
+    do
+    {
+        system("cls");
+        printf("Ingrese tipo de producto a actulizar:\n");
+        printf("1 Teclado\n");
+        printf("2 Mouse\n");
+        printf("3 Monitor\n");
+        printf("4 Notebook\n");
+        printf("5 PC de escritorio\n");
+        scanf("%d",&op);
+        fflush(stdin);
+        if (op<1 || op>5)
+        {
+            system("cls");
+            printf("Error su opcion no es valida, reingrese dato\n");
+            system("pause");
+        }
+        
+    } while (op<1 || op>5);
+
+
+
+    
+    int id_leido;
+    // ! ahora le mstramos todos los productos de ese tipo y leemos el id que quiere editar en la variable id_leido
+    // ! validar que primero ese tipo de producto tenga stocks al menos 1;
+    // ! va a ser mucho codigo pero con un swcht y un for por case y una bandera se hace xd;
+
+    // ! solo esta echo el teclado pero es lo mismo para los demas
+    switch (op)
+    {
+    case 1:
+        for ( i = 0; i < 20; i++)
+        {
+            if (teclado[i].stock==1)
+            {
+                if (teclado[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(teclado[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(teclado[i].modelo);
+                    fflush(stdin);
+
+                    printf("Ingrese Idioma\n");
+                    gets(teclado[i].idioma);
+                    fflush(stdin);
+
+                    break;
+                }
+                
+            }
+            
+        }
+        
+        break;
+
+    case 2:
+        /* code */
+        break;
+
+    case 3:
+        /* code */
+        break;
+
+    case 4:
+        /* code */
+        break;
+
+    case 5:
+        /* code */
+        break;
+
+    default:
+
+        break;
+    }
+
+
+
+
+
+}
+
 void llenar_user()
 {
     user.id = 777;
