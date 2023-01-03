@@ -302,7 +302,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     llenar_teclado(i, 0);
                     system("pause");
                     bandera = 1;
-                    if(i == 20 && teclado[i].stock != 0)printf("STOCK LLENO");
+                    if(i == 19 && teclado[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -313,7 +313,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     llenar_mouse(i, 0);
                     system("pause");
                     bandera = 1;
-                    if(i == 20 && mouse[i].stock != 0)printf("STOCK LLENO");
+                    if(i == 19 && mouse[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -324,7 +324,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     llenar_monitor(i, 0);
                     system("pause");
                     bandera = 1;
-                    if(i == 20 && monitor[i].stock != 0)printf("STOCK LLENO");
+                    if(i == 19 && monitor[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -332,8 +332,8 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                 if(note[i].stock == 0)
                 {
                     system("cls");
-                    note[i].id=id;
                     id++;
+                    note[i].id=id;
                     note[i].stock = 1;
                     printf("Ingrese marca\n ");
                     gets(note[i].marca);
@@ -372,7 +372,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
 
                     system("pause");
                     bandera = 1;
-                    if(i == 20 && note[i].stock != 0)printf("STOCK LLENO");
+                    if(i == 19 && note[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -415,7 +415,7 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                     llenar_monitor(i, 1);
                     system("pause");
                     bandera = 1;
-                    if(i == 20 && pc[i].stock != 0)printf("STOCK LLENO");
+                    if(i == 19 && pc[i].stock != 0)printf("STOCK LLENO");
                 }
                 
                 break;
@@ -435,16 +435,19 @@ int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
 
 void llenar_teclado(int i, int a)//todo ESTO ES PARA DIVIDIR TECLADO DE PC_TECLADO
 {
-    teclado[i].id=id;
+    
     id++;
-    teclado[i].stock = 1;
+    //! es neceasrio ponerle stock al teclADO DE PC ? si eso lo usamos para si exite o no pero pa eso usamos el del pc pc
     printf("Ingrese marca\n ");
     if(a != 0)
     {
+        teclado[i].id=id;
+        teclado[i].stock = 1;
         gets(teclado[i].marca);
         fflush(stdin);
     }else//todo ESTO ES PC
     {
+        pc[i].pc_teclado.id=id;
         gets(pc[i].pc_teclado.marca);
         fflush(stdin);
     }
@@ -472,16 +475,19 @@ void llenar_teclado(int i, int a)//todo ESTO ES PARA DIVIDIR TECLADO DE PC_TECLA
 
 void llenar_mouse(int i, int a)//todo ESTO ES PARA DIVIDIR MOUSE DE PC_TECLADO
 {
-    mouse[i].id=id;
+    
     id++;
-    mouse[i].stock = 1;
+    
     printf("Ingrese marca\n ");
     if(a != 0)
     {
+        mouse[i].id=id;
+        mouse[i].stock = 1;
         gets(mouse[i].marca);
         fflush(stdin);
     }else//todo ESTO ES PC
     {
+        pc[i].pc_mouse.id=id;
         gets(pc[i].pc_mouse.marca);
         fflush(stdin);
     }
@@ -499,17 +505,20 @@ void llenar_mouse(int i, int a)//todo ESTO ES PARA DIVIDIR MOUSE DE PC_TECLADO
 
 void llenar_monitor(int i, int a)
 {
-    monitor[i].id=id;
+    
     id++;
-    monitor[i].stock = 1;
+    
 
     printf("Ingrese marca\n ");
     if(a != 0)
     {
+        monitor[i].stock = 1;
+        monitor[i].id=id;
         gets(monitor[i].marca);
         fflush(stdin);
     }else//todo ESTO ES PC
     {
+        pc[i].pc_monitor.id=id;
         gets(pc[i].pc_monitor.marca);
         fflush(stdin);
     }
