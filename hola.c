@@ -601,22 +601,108 @@ void lista_produc(int x)
                 if (teclado[i].stock != 0)
                 {
                     
-                    printf("%d ", teclado[i].id);
-                    printf("%s ", teclado[i].marca);
-                    printf("%s ", teclado[i].modelo);
-                    printf("%s ", teclado[i].idioma);
-                    printf("%d ", teclado[i].stock );
+                    printf("%d    ", teclado[i].id);
+                    printf("%s\t", teclado[i].marca);
+                    printf("%s   ", teclado[i].modelo);
+                    printf("%s \t", teclado[i].idioma);
+                    printf("  %d ", teclado[i].stock );
                     printf("\n----------------------------------------------------- \n");
                 }
             }
             break;
         case 1:
+        	printf("********************** MOUSE *********************\n");
+            printf("ID     MARCA      MODELO       STOCK\n");
+            for( i = 0; i < 20; i++)
+            {
+                if (mouse[i].stock != 0)
+                {
+                    
+                    printf("%d    ", mouse[i].id);
+                    printf("%s\t  ", mouse[i].marca);
+                    printf("%s  \t", mouse[i].modelo);
+                    printf("%d ", mouse[i].stock );
+                    printf("\n----------------------------------------------------- \n");
+                }
+            }
             break;
         case 2:
+        	printf("********************** MONITORES *********************\n");
+            printf("ID     MARCA      MODELO           PULGADAS       STOCK\n");
+            for( i = 0; i < 20; i++)
+            {
+                if (monitor[i].stock != 0)
+                {
+                    
+                    printf("%d    ", monitor[i].id);
+                    printf("%s\t", monitor[i].marca);
+                    printf("%s\t", monitor[i].modelo);
+                    printf("      %.1f \t", monitor[i].pulgadas);
+                    printf("    %d ", monitor[i].stock );
+                    printf("\n----------------------------------------------------- \n");
+                }
+            }
             break;
         case 3:
+        	printf("********************** NOTEBOOKS *********************\n");
+            printf("ID     MARCA      MODELO           PROCESADOR           RAM      PULGADAS       STOCK\n");
+            for( i = 0; i < 20; i++)
+            {
+                if (monitor[i].stock != 0)
+                {
+                    
+                    printf("%d    ", note[i].id);
+                    printf("%s\t", note[i].marca);
+                    printf("%s\t", note[i].modelo);
+                    printf("   %s \t\t", note[i].procesador);
+                    printf(" %d\t", note[i].ram);
+                    printf("  %.1f  \t",  note[i].pulgadas);
+                    printf("  %d", note[i].stock );
+                    printf("\n----------------------------------------------------- \n");
+                }
+            }
             break;
         case 4:
+        	
+            for( i = 0; i < 20; i++)
+            {
+                if (monitor[i].stock != 0)
+                {
+                    printf("\n\n*************************** PC *************************************************\n");
+            		printf("ID     MARCA      MODELO           	PROCESADOR           RAM        STOCK\n");
+                    printf("%d    ", pc[i].id);
+                    printf("%s\t", pc[i].marca);
+                    printf("  %s\t", pc[i].modelo);
+                    printf("   	%s", pc[i].procesador);
+                    printf("	      %d\t", pc[i].ram);
+                    printf("  %d", pc[i].stock );
+                    
+                    printf("\n\n		  ---MONITOR--- \n");
+                    printf("ID     MARCA      MODELO           	PULGADAS			\n");
+                    printf("%d    ", pc[i].pc_monitor.id);
+                    printf("%s\t", pc[i].pc_monitor.marca);
+                    printf("  %s\t", pc[i].pc_monitor.modelo);
+                    printf("        %.1f \t", pc[i].pc_monitor.pulgadas);
+                    
+                    printf("\n\n		  ---TECLADO--- \n");
+                    printf("ID     MARCA      MODELO           	IDIOMA       			\n");
+                    printf("%d    ", pc[i].pc_teclado.id);
+                    printf("%s\t", pc[i].pc_teclado.marca);
+                    printf("  %s 	", pc[i].pc_teclado.modelo);
+                    printf("%s \t", pc[i].pc_teclado.idioma);
+                    
+                    
+                    printf("\n\n		  ---MOUSE--- \n");
+                    printf("ID     MARCA      MODELO       						\n");
+                    printf("%d    ", pc[i].pc_mouse.id);
+                    printf("%s\t  ", pc[i].pc_mouse.marca);
+                    printf("%s  \t", pc[i].pc_mouse.modelo);
+                    
+                    
+                    
+                    
+                }
+            }
             break;
         
     }
