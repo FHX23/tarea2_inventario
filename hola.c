@@ -88,10 +88,11 @@ void llenar_mouse(int i, int a);
 void llenar_monitor(int i, int a);
 
 
-void lista_produc();
+void lista_produc(int x);
 void opciones(); //* MENU AGREGAR PROD 
-int sub_op(); //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
+int agregar_producto(); //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
 
+void eliminar_producto();
 int actualizar_productos();
 //todo ************************************ MAIN ****************************************
 int main(int argc, char const *argv[])
@@ -221,7 +222,7 @@ void opciones(){
     //• Debe contar con un menú para poder realizar las operaciones mencionadas.
     //• Debe indicar la cantidad de existencias de cada producto.
 
-    int opcion, bandera = 0;
+    int opcion, bandera = 0, x = 0;
     do{
         system("cls");
         printf("Ingrese su opcion\n");
@@ -243,16 +244,45 @@ void opciones(){
             case 1:
                 do
                 {
-                    opcion = sub_op();
+                    opcion = agregar_producto();
                     if(opcion > 5 || opcion < 1)system("cls");
                 }while(opcion > 5 || opcion < 1);
                 break;
             case 2:
+                system("cls");
                 actualizar_productos();
                 break;
             case 3:
+                do
+                {
+                    
+                    lista_produc(x);
+                    switch(_getch())
+                    {
+                        case 'a':
+                            if(x>0)
+                            {
+                                x = x - 1;
+                            }else
+                            {
+                                x = 4;
+                            }
+                            break;
+                        case 'd':
+                            if(x < 4)
+                            {
+                                x = x + 1;
+                            }else
+                            {
+                                x = 0;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }while(1);
                 system("cls");
-                lista_produc();
+                
                 break;
             case 4:
                 
@@ -277,7 +307,7 @@ void opciones(){
 }
 
 
-int sub_op()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
+int agregar_producto()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
 {
     int i, bandera = 0, op;
 
@@ -557,25 +587,39 @@ void llenar_monitor(int i, int a)
 }
 
 
-void lista_produc()
+void lista_produc(int x)
 {
+    system("cls");
     int i;
-    printf("********************** TECLADOS *********************\n");
-    printf("ID     MARCA      MODELO           IDIOMA       STOCK\n");
-    for( i = 0; i < 20; i++)
+    switch(x)
     {
-        if (teclado[i].stock != 0)
-        {
-            
-            printf("%d  ", teclado[i].id);
-            printf("%s  ", teclado[i].marca);
-            printf("%s  ", teclado[i].modelo);
-            printf("%s  ",teclado[i].idioma);
-            printf("%d  ", teclado[i].stock );
-            printf("\n----------------------------------------------------- \n");
-        }
+        case 0:
+            printf("********************** TECLADOS *********************\n");
+            printf("ID     MARCA      MODELO           IDIOMA       STOCK\n");
+            for( i = 0; i < 20; i++)
+            {
+                if (teclado[i].stock != 0)
+                {
+                    
+                    printf("%d ", teclado[i].id);
+                    printf("%s ", teclado[i].marca);
+                    printf("%s ", teclado[i].modelo);
+                    printf("%s ", teclado[i].idioma);
+                    printf("%d ", teclado[i].stock );
+                    printf("\n----------------------------------------------------- \n");
+                }
+            }
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        
     }
-    system("pause");
     
 }
 
@@ -667,22 +711,34 @@ int actualizar_productos(){
     int op,i;
     do
     {
-        system("cls");
-        printf("Ingrese tipo de producto a actulizar:\n");
+        
+        printf("Ingrese tipo de producto a actualizar:\n");
         printf("1 Teclado\n");
         printf("2 Mouse\n");
         printf("3 Monitor\n");
         printf("4 Notebook\n");
         printf("5 PC de escritorio\n");
-        scanf("%d",&op);
-        fflush(stdin);
-        if (op<1 || op>5)
-        {
-            system("cls");
-            printf("Error su opcion no es valida, reingrese dato\n");
-            system("pause");
-        }
+        op = _getch();
         
+        switch(op-48)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            default:
+                system("cls");
+                printf("Error su opcion no es valida, reingrese dato\n");
+                system("pause");
+                break;
+        }
+
     } while (op<1 || op>5);
 
 
@@ -750,6 +806,24 @@ int actualizar_productos(){
 
 
 
+}
+
+void eliminar_producto()
+{
+    int op,i;
+    do
+    {
+        
+        printf("Ingrese tipo de producto a eliminar:\n");
+        printf("1 Teclado\n");
+        printf("2 Mouse\n");
+        printf("3 Monitor\n");
+        printf("4 Notebook\n");
+        printf("5 PC de escritorio\n");
+        op = _getch();
+        lista_produc(op-49);//!MENOS 49 PARA RESTARLE 1 AL N
+
+    } while (op<1 || op>5);
 }
 
 void llenar_user()
