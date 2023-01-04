@@ -105,7 +105,6 @@ int main(int argc, char const *argv[])
     {
         bandera = login();
     }while(bandera == 1);
-
     system("cls");
     printf("Cargando...\n");
     for (i = 0; i <= 100; i++)
@@ -437,39 +436,40 @@ void llenar_teclado(int i, int a)//todo ESTO ES PARA DIVIDIR TECLADO DE PC_TECLA
 {
     
     id++;
+    
     //! es neceasrio ponerle stock al teclADO DE PC ? si eso lo usamos para si exite o no pero pa eso usamos el del pc pc
-    printf("Ingrese marca\n ");
-    if(a != 0)
+    
+    if(a == 0)
     {
+		teclado[i].stock = 1;
+		teclado[i].id = id;
+    	printf("Ingrese marca\n ");
         teclado[i].id=id;
         teclado[i].stock = 1;
         gets(teclado[i].marca);
         fflush(stdin);
-    }else//todo ESTO ES PC
-    {
-        pc[i].pc_teclado.id=id;
-        gets(pc[i].pc_teclado.marca);
-        fflush(stdin);
-    }
-    printf("Ingrese modelo\n");
-    if(a != 0)
-    {
+        printf("Ingrese modelo\n");
         gets(teclado[i].modelo);
         fflush(stdin);
-    }else//todo ESTO ES PC
-    {
-        gets(pc[i].pc_teclado.modelo);
-        fflush(stdin);
-    }
-    printf("Ingrese Idioma\n");
-    if(a != 0)
-    {
+        printf("Ingrese Idioma\n");
         gets(teclado[i].idioma);
         fflush(stdin);
     }else//todo ESTO ES PC
     {
+    	pc[i].pc_teclado.stock = 1;
+    	pc[i].pc_teclado.id = id;
+    	
+    	printf("Ingrese marca\n ");
+        pc[i].pc_teclado.id=id;
+        gets(pc[i].pc_teclado.marca);
+        fflush(stdin);
+        printf("Ingrese modelo\n");
+        gets(pc[i].pc_teclado.modelo);
+        fflush(stdin);
+        printf("Ingrese Idioma\n");
         gets(pc[i].pc_teclado.idioma);
         fflush(stdin);
+        
     }
 }
 
@@ -478,26 +478,27 @@ void llenar_mouse(int i, int a)//todo ESTO ES PARA DIVIDIR MOUSE DE PC_TECLADO
     
     id++;
     
-    printf("Ingrese marca\n ");
-    if(a != 0)
+    if(a == 0)
     {
+    	printf("Ingrese marca\n ");
         mouse[i].id=id;
         mouse[i].stock = 1;
         gets(mouse[i].marca);
         fflush(stdin);
+        
+        printf("Ingrese modelo\n");
+        gets(mouse[i].modelo);
+        fflush(stdin);
+        
     }else//todo ESTO ES PC
     {
+    	pc[i].pc_mouse.id=id;
+        pc[i].pc_mouse.stock = 1;
+    	printf("Ingrese marca\n ");
         pc[i].pc_mouse.id=id;
         gets(pc[i].pc_mouse.marca);
         fflush(stdin);
-    }
-    printf("Ingrese modelo\n");
-    if(a != 0)
-    {
-        gets(mouse[i].modelo);
-        fflush(stdin);
-    }else//todo ESTO ES PC
-    {
+        printf("Ingrese modelo\n");
         gets(pc[i].pc_mouse.modelo);
         fflush(stdin);
     }
@@ -508,34 +509,20 @@ void llenar_monitor(int i, int a)
     
     id++;
     
-
-    printf("Ingrese marca\n ");
-    if(a != 0)
+    
+    if(a == 0)
     {
+    	
+    	printf("Ingrese marca\n ");
         monitor[i].stock = 1;
         monitor[i].id=id;
         gets(monitor[i].marca);
         fflush(stdin);
-    }else//todo ESTO ES PC
-    {
-        pc[i].pc_monitor.id=id;
-        gets(pc[i].pc_monitor.marca);
-        fflush(stdin);
-    }
-    printf("Ingrese modelo\n");
-    if(a != 0)
-    {
+        printf("Ingrese modelo\n");
         gets(monitor[i].modelo);
         fflush(stdin);
-    }else//todo ESTO ES PC
-    {
-        gets(pc[i].pc_monitor.modelo);
-        fflush(stdin);
-    }
-    
-    if(a != 0)
-    {
-        do
+        
+		do
         {   
             printf("Ingrese pulgadas\n");
             scanf("%f", &monitor[i].pulgadas); 
@@ -544,10 +531,18 @@ void llenar_monitor(int i, int a)
             {
                 printf("Pulgadas no validos, reingrese el dato\n");
             }
-            
         } while (monitor[i].pulgadas<7);
+        
     }else//todo ESTO ES PC
     {
+    	pc[i].pc_monitor.id=id;
+    	pc[i].pc_monitor.stock = 1;
+    	printf("Ingrese marca\n ");
+        gets(pc[i].pc_monitor.marca);
+        fflush(stdin);
+        printf("Ingrese modelo\n");
+        gets(pc[i].pc_monitor.modelo);
+        fflush(stdin);
         do
         {   
             printf("Ingrese pulgadas\n");
@@ -642,7 +637,7 @@ void llenar_datos_struct(){
 
             // ? idioma solo teclados
             strcpy(teclado[i].idioma, "Ingles");
-            printf("%s\n", teclado[i].modelo);//! aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            printf("%s\n", teclado[i].idioma);//! aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
             strcpy(pc[i].pc_teclado.idioma, "Ingles");
 
