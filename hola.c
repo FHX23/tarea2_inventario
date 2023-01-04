@@ -12,7 +12,7 @@ typedef struct
 {
     int id;
     char marca[15];
-    char modelo[10];
+    char modelo[20];
     char idioma[10];
     int stock;
 } estructura_teclado;
@@ -22,7 +22,7 @@ typedef struct
 {
     int id;
     char marca[15];
-    char modelo[10];
+    char modelo[20];
     int stock;
 } estructura_mouse;
 estructura_mouse mouse[20]; // * DEFINIMOS MOUSE
@@ -31,7 +31,7 @@ typedef struct
 {
     int id;
     char marca[15];
-    char modelo[10];
+    char modelo[20];
     float pulgadas; //! PULGADAS > 7
     int stock;
 } estructura_monitor;
@@ -41,7 +41,7 @@ typedef struct
 {
     int id;
     char marca[15];
-    char modelo[10];
+    char modelo[20];
     int ram; //! RAM SIEMPRE POTENCIA DE 2
     char procesador[15]; //todo AGREGO EL [15]
     float pulgadas; //! PULGADAS > 11
@@ -53,9 +53,9 @@ typedef struct
 {
     int id;
     char marca[15];
-    char modelo[10];
+    char modelo[20];
     int ram; //! RAM SIEMPRE POTENCIA DE 2
-    char procesador[15]; //todo AGREGO EL [15]
+    char procesador[20]; //todo AGREGO EL [15]
     
     estructura_teclado pc_teclado;
     estructura_mouse pc_mouse;
@@ -181,7 +181,7 @@ int login() // NUEVO LOGIN MODIFICADO
     // todo aqui leeo el usuario con gets, pregunto si es igual al de la base de dato"""
     // todo si es igual pasa a la contrasena sino returna 1 y printea que reingrese los datos
     cont = 0;
-    for (i = 0; user.nombreuser[i] != '\0'; i++)
+    for (i = 0; i< 7; i++)
     {
         if (usuario[i] != user.nombreuser[i])
         {
@@ -285,7 +285,7 @@ void opciones(){
                 
                 break;
             case 4:
-                
+                eliminar_producto();
                 break;
             case 5:
 
@@ -393,11 +393,11 @@ int agregar_producto()//!FUNCION INCOMPLETA DE AGREGAR PRODUCTO
                         printf("Ingrese pulgadas\n");
                         scanf("%f", &note[i].pulgadas); 
                         fflush(stdin);
-                        if (note[i].pulgadas<7)
+                        if (note[i].pulgadas<11)
                         {
                             printf("Pulgadas no validos, reingrese el dato\n");
                         }
-                    } while (note[i].pulgadas<7);
+                    } while (note[i].pulgadas<11);
 
                     system("pause");
                     bandera = 1;
@@ -663,13 +663,13 @@ void lista_produc(int x)
             }
             break;
         case 4:
-        	
+
             for( i = 0; i < 20; i++)
             {
                 if (monitor[i].stock != 0)
                 {
                     printf("\n\n*************************** PC *************************************************\n");
-            		printf("ID     MARCA      MODELO           	PROCESADOR           RAM        STOCK\n");
+                    printf("ID     MARCA      MODELO           	PROCESADOR           RAM        STOCK\n");
                     printf("%d    ", pc[i].id);
                     printf("%s\t", pc[i].marca);
                     printf("  %s\t", pc[i].modelo);
@@ -806,41 +806,34 @@ int actualizar_productos(){
         printf("5 PC de escritorio\n");
         op = _getch();
         
-        switch(op-48)
+        if (op-48<1 || op-48>5)
         {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            default:
-                system("cls");
-                printf("Error su opcion no es valida, reingrese dato\n");
-                system("pause");
-                break;
+            printf("Error opcion no valida, reingrese dato\n");
         }
+        
 
-    } while (op<1 || op>5);
+    } while (op-48<1 || op-48>5);
 
-
-
-    
+    op=op-48;
     int id_leido;
-    // ! ahora le mstramos todos los productos de ese tipo y leemos el id que quiere editar en la variable id_leido
-    // ! validar que primero ese tipo de producto tenga stocks al menos 1;
-    // ! va a ser mucho codigo pero con un swcht y un for por case y una bandera se hace xd;
 
-    // ! solo esta echo el teclado pero es lo mismo para los demas
+    int banderin=1;
+    
+        system("cls");
+        lista_produc(op-1);
+        printf("Ingrese el id a editar\n");
+        scanf("%d",&id_leido);
+        fflush(stdin);
+    system("cls");
+
+
     switch (op)
     {
     case 1:
+
         for ( i = 0; i < 20; i++)
         {
+            
             if (teclado[i].stock==1)
             {
                 if (teclado[i].id==id_leido)
@@ -861,6 +854,11 @@ int actualizar_productos(){
                     break;
                 }
                 
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
             }
             
         }
@@ -868,23 +866,216 @@ int actualizar_productos(){
         break;
 
     case 2:
-        /* code */
+        
+        for ( i = 0; i < 20; i++)
+        {
+            if (mouse[i].stock==1)
+            {
+                if (mouse[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(mouse[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(mouse[i].modelo);
+                    fflush(stdin);
+
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
         break;
 
     case 3:
-        /* code */
+        
+        for ( i = 0; i < 20; i++)
+        {
+            if (monitor[i].stock==1)
+            {
+                if (monitor[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(monitor[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(monitor[i].modelo);
+                    fflush(stdin);
+                    
+                    do{   
+                        printf("Ingrese pulgadas\n");
+                        scanf("%f", &monitor[i].pulgadas); 
+                        fflush(stdin);
+                        if (monitor[i].pulgadas<7)
+                        {
+                            printf("Pulgadas no validos, reingrese el dato\n");
+                        }
+                    } while (monitor[i].pulgadas<7);
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
         break;
 
     case 4:
-        /* code */
+        
+        for ( i = 0; i < 20; i++)
+        {
+            if (note[i].stock==1)
+            {
+                if (note[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(note[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(note[i].modelo);
+                    fflush(stdin);
+                    
+                    printf("Ingrese procesador\n");
+                    gets(note[i].procesador);
+                    fflush(stdin);
+
+                    do
+                    {
+                        printf("Ingrese memoria ram\n");
+                        scanf("%d", &note[i].ram);
+                        fflush(stdin);
+                        if (note[i].ram<2);
+                        {
+                            printf("Dato erroneo, reingrese dato\n");
+                        }
+                        
+                    } while (note[i].ram<2);
+
+                    do{   
+                        printf("Ingrese pulgadas\n");
+                        scanf("%f", &note[i].pulgadas); 
+                        fflush(stdin);
+                        if (note[i].pulgadas<11)
+                        {
+                            printf("Pulgadas no validos, reingrese el dato\n");
+                        }
+                    } while (note[i].pulgadas<11);
+
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
+
         break;
 
     case 5:
-        /* code */
+        // todo pc
+        for ( i = 0; i < 20; i++)
+        {
+            if (pc[i].stock==1)
+            {
+                if (pc[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(pc[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(pc[i].modelo);
+                    fflush(stdin);
+                    
+                    do
+                    {
+                        printf("Ingrese memoria ram\n");
+                        scanf("%d", &pc[i].ram);
+                        fflush(stdin);
+                        if (pc[i].ram<2);
+                        {
+                            printf("Dato erroneo, reingrese dato\n");
+                        }
+                        
+                    } while (pc[i].ram<2);
+
+                    printf("Ingrese procesador del pc\n");
+                    gets(pc[i].procesador);
+                    fflush(stdin);
+
+                    // ? leemos teclado
+                    printf("Ingrese marca del teclado del pc\n ");
+                    gets(pc[i].pc_teclado.marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo del teclado del pc\n");
+                    gets(pc[i].pc_teclado.modelo);
+                    fflush(stdin);
+
+                    printf("Ingrese Idioma\n");
+                    gets(pc[i].pc_teclado.idioma);
+                    fflush(stdin);
+                    
+                    // ? leemos mouse
+                    printf("Ingrese marca del mouse del pc\n ");
+                    gets(pc[i].pc_mouse.marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo del mouse del pc\n");
+                    gets(pc[i].pc_mouse.modelo);
+                    fflush(stdin);
+
+                    //? leemos monitor del pc
+                    printf("Ingrese marca del monitor del pc\n ");
+                    gets(pc[i].pc_monitor.marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo del monitor del pc\n");
+                    gets(pc[i].pc_monitor.modelo);
+                    fflush(stdin);
+
+                    do{   
+                        printf("Ingrese pulgadas del monitor del pc\n");
+                        scanf("%f", &pc[i].pc_monitor.pulgadas); 
+                        fflush(stdin);
+                        if (pc[i].pc_monitor.pulgadas<7)
+                        {
+                            printf("Pulgadas no validos, reingrese el dato\n");
+                        }
+                    } while (pc[i].pc_monitor.pulgadas<7);
+
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
         break;
 
     default:
-
+            printf("no deberias ver esto\n");
         break;
     }
 
@@ -907,9 +1098,283 @@ void eliminar_producto()
         printf("4 Notebook\n");
         printf("5 PC de escritorio\n");
         op = _getch();
-        lista_produc(op-49);//!MENOS 49 PARA RESTARLE 1 AL N
+        
+        if (op-48<1 || op-48>5)
+        {
+            printf("Error opcion no valida, reingrese dato\n");
+        }
+        
 
-    } while (op<1 || op>5);
+    } while (op-48<1 || op-48>5);
+
+    op=op-48;
+    int id_leido;
+
+    int banderin=1;
+    
+        system("cls");
+        lista_produc(op-1);
+        printf("Ingrese el id a eliminar\n");
+        scanf("%d",&id_leido);
+        fflush(stdin);
+    system("cls");
+   
+
+
+   // ! hacer la borracion
+    switch (op)
+    {
+    case 1:
+
+        for ( i = 0; i < 20; i++)
+        {
+            
+            if (teclado[i].stock==1)
+            {
+                if (teclado[i].id==id_leido)
+                {
+                    
+                    
+                    gets(teclado[i].marca);
+
+
+
+                    gets(teclado[i].modelo);
+                    fflush(stdin);
+
+
+                    gets(teclado[i].idioma);
+
+
+                    break;
+                }
+                
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
+        
+        break;
+
+    case 2:
+        
+        for ( i = 0; i < 20; i++)
+        {
+            if (mouse[i].stock==1)
+            {
+                if (mouse[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(mouse[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(mouse[i].modelo);
+                    fflush(stdin);
+
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
+        break;
+
+    case 3:
+        
+        for ( i = 0; i < 20; i++)
+        {
+            if (monitor[i].stock==1)
+            {
+                if (monitor[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(monitor[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(monitor[i].modelo);
+                    fflush(stdin);
+                    
+                    do{   
+                        printf("Ingrese pulgadas\n");
+                        scanf("%f", &monitor[i].pulgadas); 
+                        fflush(stdin);
+                        if (monitor[i].pulgadas<7)
+                        {
+                            printf("Pulgadas no validos, reingrese el dato\n");
+                        }
+                    } while (monitor[i].pulgadas<7);
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
+        break;
+
+    case 4:
+        
+        for ( i = 0; i < 20; i++)
+        {
+            if (note[i].stock==1)
+            {
+                if (note[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(note[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(note[i].modelo);
+                    fflush(stdin);
+                    
+                    printf("Ingrese procesador\n");
+                    gets(note[i].procesador);
+                    fflush(stdin);
+
+                    do
+                    {
+                        printf("Ingrese memoria ram\n");
+                        scanf("%d", &note[i].ram);
+                        fflush(stdin);
+                        if (note[i].ram<2);
+                        {
+                            printf("Dato erroneo, reingrese dato\n");
+                        }
+                        
+                    } while (note[i].ram<2);
+
+                    do{   
+                        printf("Ingrese pulgadas\n");
+                        scanf("%f", &note[i].pulgadas); 
+                        fflush(stdin);
+                        if (note[i].pulgadas<11)
+                        {
+                            printf("Pulgadas no validos, reingrese el dato\n");
+                        }
+                    } while (note[i].pulgadas<11);
+
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
+
+        break;
+
+    case 5:
+        // todo pc
+        for ( i = 0; i < 20; i++)
+        {
+            if (pc[i].stock==1)
+            {
+                if (pc[i].id==id_leido)
+                {
+                    
+                    printf("Ingrese marca\n ");
+                    gets(pc[i].marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo\n");
+                    gets(pc[i].modelo);
+                    fflush(stdin);
+                    
+                    do
+                    {
+                        printf("Ingrese memoria ram\n");
+                        scanf("%d", &pc[i].ram);
+                        fflush(stdin);
+                        if (pc[i].ram<2);
+                        {
+                            printf("Dato erroneo, reingrese dato\n");
+                        }
+                        
+                    } while (pc[i].ram<2);
+
+                    printf("Ingrese procesador del pc\n");
+                    gets(pc[i].procesador);
+                    fflush(stdin);
+
+                    // ? leemos teclado
+                    printf("Ingrese marca del teclado del pc\n ");
+                    gets(pc[i].pc_teclado.marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo del teclado del pc\n");
+                    gets(pc[i].pc_teclado.modelo);
+                    fflush(stdin);
+
+                    printf("Ingrese Idioma\n");
+                    gets(pc[i].pc_teclado.idioma);
+                    fflush(stdin);
+                    
+                    // ? leemos mouse
+                    printf("Ingrese marca del mouse del pc\n ");
+                    gets(pc[i].pc_mouse.marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo del mouse del pc\n");
+                    gets(pc[i].pc_mouse.modelo);
+                    fflush(stdin);
+
+                    //? leemos monitor del pc
+                    printf("Ingrese marca del monitor del pc\n ");
+                    gets(pc[i].pc_monitor.marca);
+                    fflush(stdin);
+
+                    printf("Ingrese modelo del monitor del pc\n");
+                    gets(pc[i].pc_monitor.modelo);
+                    fflush(stdin);
+
+                    do{   
+                        printf("Ingrese pulgadas del monitor del pc\n");
+                        scanf("%f", &pc[i].pc_monitor.pulgadas); 
+                        fflush(stdin);
+                        if (pc[i].pc_monitor.pulgadas<7)
+                        {
+                            printf("Pulgadas no validos, reingrese el dato\n");
+                        }
+                    } while (pc[i].pc_monitor.pulgadas<7);
+
+                    break;
+                }
+                
+            }else if(i==19 ){
+                system("cls");
+                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
+                    system("pause");
+            }
+            
+        }
+        break;
+
+    default:
+            printf("no deberias ver esto\n");
+        break;
+    }
+
+
 }
 
 void llenar_user()
