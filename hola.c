@@ -4,8 +4,13 @@
 #include <conio.h>
 #include <unistd.h>
 
-// ? id goblal parte en 700 y se le sube en 1 en 1
-int id=700; 
+
+//Diego Alejandro Aguilera Villarroel, 21.585.905-3
+//Matias Eduardo Arenas Rodriguez, 21.123.205-6
+
+
+
+int id=700; // ? id goblal parte en 700 y se le sube en 1 en 1
 
 // todo ***************************ESTRUCTURAS******************************************
 typedef struct
@@ -91,17 +96,21 @@ void llenar_monitor(int i, int a);
 void lista_produc(int x);
 void opciones(); //* MENU AGREGAR PROD 
 int agregar_producto(); //* SUB MENU TIPO PROD Y SEGUN TIPO DE PROD, SE PIDEN DATOS ESPECIFICOS
+int buscar_marca(char marc[], int i);
+void mostrar_marcas(char marc[] );
 
 void eliminar_producto();
 int actualizar_productos();
+
 //todo ************************************ MAIN ****************************************
 int main(int argc, char const *argv[])
 {
+	
     int bandera = 1, i;
     system("title login inventario");
     llenar_user();
     llenar_datos_struct();
-    /*
+    
     do
     {
         bandera = login();
@@ -113,7 +122,7 @@ int main(int argc, char const *argv[])
         printf("\r%d%%", i);
         usleep(100000); //! manda warning pero solo en visual estudio en devc del profe todo oki
     }
-    system("title vegeta");
+    system("title Usuario: Joseph Joestar JoJo");
     system("cls");
     printf(" .----------------.  .----------------.  .----------------. \n");
     printf("| .--------------. || .--------------. || .--------------. |\n");
@@ -135,7 +144,7 @@ int main(int argc, char const *argv[])
     printf(" |_|_| |_|\\_/ \\___|_| |_|\\__\\__,_|_|  |_|\\___/ \n");
     system("pause");
     system("cls");
-*/
+
     opciones();
     system("pause");
     return 0;
@@ -222,7 +231,8 @@ void opciones(){
     //• Debe contar con un menú para poder realizar las operaciones mencionadas.
     //• Debe indicar la cantidad de existencias de cada producto.
 
-    int opcion, bandera = 0, x = 0;
+    int opcion, bandera = 0, x = 0, salir = 1;
+    char marc[20];
     do{
         system("cls");
         printf("Ingrese su opcion\n");
@@ -255,7 +265,7 @@ void opciones(){
             case 3:
                 do
                 {
-                    
+                    salir = 1;
                     lista_produc(x);
                     switch(_getch())
                     {
@@ -277,10 +287,15 @@ void opciones(){
                                 x = 0;
                             }
                             break;
+                        case 27:
+                        	
+                        	salir = 0;
+                        	break;
+                        	
                         default:
                             break;
                     }
-                }while(1);
+                }while(salir != 0);
                 system("cls");
                 
                 break;
@@ -288,7 +303,16 @@ void opciones(){
                 eliminar_producto();
                 break;
             case 5:
-
+				printf("\nIngrese marca a buscar: ");
+            	gets(marc);
+				if(buscar_marca(marc, 0) == 1)
+				{
+					mostrar_marcas(marc);
+				}else
+				{
+					
+				}
+				
                 break;
             case 6:
                 bandera = 1;
@@ -590,24 +614,38 @@ void llenar_monitor(int i, int a)
 void lista_produc(int x)
 {
     system("cls");
-    int i;
+    int i, cont=0;
+    
+    /*
+	for( i = 0; i < 20; i++)
+    {
+    	if(teclado[i].stock == 1)cont = cont + 1;
+    	
+	}*/
+
     switch(x)
     {
         case 0:
             printf("********************** TECLADOS *********************\n");
-            printf("ID     MARCA      MODELO           IDIOMA       STOCK\n");
+            printf("ID     MARCA      MODELO     IDIOMA     STOCK\n");
             for( i = 0; i < 20; i++)
             {
                 if (teclado[i].stock != 0)
                 {
-                    
+                    cont = cont + 1;
                     printf("%d    ", teclado[i].id);
                     printf("%s\t", teclado[i].marca);
                     printf("%s   ", teclado[i].modelo);
                     printf("%s \t", teclado[i].idioma);
                     printf("  %d ", teclado[i].stock );
                     printf("\n----------------------------------------------------- \n");
+                    
+                    
                 }
+                if ( i == 19 )
+                {
+                    printf("\nTeclados: %d/20", cont);
+				}
             }
             break;
         case 1:
@@ -617,13 +655,17 @@ void lista_produc(int x)
             {
                 if (mouse[i].stock != 0)
                 {
-                    
+                    cont = cont + 1;
                     printf("%d    ", mouse[i].id);
                     printf("%s\t  ", mouse[i].marca);
                     printf("%s  \t", mouse[i].modelo);
                     printf("%d ", mouse[i].stock );
                     printf("\n----------------------------------------------------- \n");
                 }
+                if ( i == 19 )
+                {
+                    printf("\nMouse: %d/20", cont);
+				}
             }
             break;
         case 2:
@@ -633,7 +675,7 @@ void lista_produc(int x)
             {
                 if (monitor[i].stock != 0)
                 {
-                    
+                    cont = cont + 1;
                     printf("%d    ", monitor[i].id);
                     printf("%s\t", monitor[i].marca);
                     printf("%s\t", monitor[i].modelo);
@@ -641,6 +683,10 @@ void lista_produc(int x)
                     printf("    %d ", monitor[i].stock );
                     printf("\n----------------------------------------------------- \n");
                 }
+                if ( i == 19 )
+                {
+                    printf("\nMonitores: %d/20", cont);
+				}
             }
             break;
         case 3:
@@ -648,9 +694,9 @@ void lista_produc(int x)
             printf("ID     MARCA      MODELO           PROCESADOR           RAM      PULGADAS       STOCK\n");
             for( i = 0; i < 20; i++)
             {
-                if (monitor[i].stock != 0)
+                if (note[i].stock != 0)
                 {
-                    
+                    cont = cont + 1;
                     printf("%d    ", note[i].id);
                     printf("%s\t", note[i].marca);
                     printf("%s\t", note[i].modelo);
@@ -660,14 +706,19 @@ void lista_produc(int x)
                     printf("  %d", note[i].stock );
                     printf("\n----------------------------------------------------- \n");
                 }
+                if ( i == 19 )
+                {
+                    printf("\nNotebooks: %d/20", cont);
+				}
             }
             break;
         case 4:
 
             for( i = 0; i < 20; i++)
             {
-                if (monitor[i].stock != 0)
+                if (pc[i].stock != 0)
                 {
+                	cont = cont + 1;
                     printf("\n\n*************************** PC *************************************************\n");
                     printf("ID     MARCA      MODELO           	PROCESADOR           RAM        STOCK\n");
                     printf("%d    ", pc[i].id);
@@ -696,17 +747,21 @@ void lista_produc(int x)
                     printf("ID     MARCA      MODELO       						\n");
                     printf("%d    ", pc[i].pc_mouse.id);
                     printf("%s\t  ", pc[i].pc_mouse.marca);
-                    printf("%s  \t", pc[i].pc_mouse.modelo);
+                    printf("%s  \t\n", pc[i].pc_mouse.modelo);
                     
                     
                     
                     
                 }
+                if ( i == 19 )
+                {
+                    printf("\nPc's: %d/20", cont);
+				}
             }
             break;
         
     }
-    
+    printf("\nRetroceder: Esc\n");
 }
 
 void llenar_datos_struct(){
@@ -794,6 +849,7 @@ void llenar_datos_struct(){
 
 int actualizar_productos(){
 
+	system("cls");
     int op,i;
     do
     {
@@ -1090,7 +1146,7 @@ void eliminar_producto()
     int op,i;
     do
     {
-        
+        system("cls");
         printf("Ingrese tipo de producto a eliminar:\n");
         printf("1 Teclado\n");
         printf("2 Mouse\n");
@@ -1112,284 +1168,171 @@ void eliminar_producto()
 
     int banderin=1;
     
-        system("cls");
-        lista_produc(op-1);
-        printf("Ingrese el id a eliminar\n");
-        scanf("%d",&id_leido);
-        fflush(stdin);
+    system("cls");
+    lista_produc(op-1);
+    printf("Ingrese el id a eliminar\n");
+    scanf("%d",&id_leido);
+    fflush(stdin);
     system("cls");
    
 
+	for ( i = 0; i < 20; i++)
+	{
+		// ! hacer la borracion
+	    switch (op)
+	    {
+	    case 1:
+	        if (teclado[i].stock==1)
+	        {
+	        	if (teclado[i].id==id_leido)
+	    		{
+	    			printf("\nProducto eliminado con exito\n");
+	    			teclado[i].stock = 0;
+	    			i=20;
+	    			system("pause");
+	            	break;
+	        	}
+			}else if(i==19 )
+	        {
+	        	system("cls");
+	            printf("Su id ingresado no coincide con ninguno de los existentes\n");
+	            system("pause");
+			}
+	        break;
+	
+	    case 2:
+	        
+	        if (mouse[i].stock==1)
+	        {
+	        	if (mouse[i].id==id_leido)
+	    		{
+	    			printf("\nProducto eliminado con exito\n");
+	    			mouse[i].stock = 0;
+	    			i=20;
+	    			system("pause");
+	            	break;
+	        	}
+	                
+	        }else if(i==19 )
+	        {
+	        	system("cls");
+	            printf("Su id ingresado no coincide con ninguno de los existentes\n");
+	            system("pause");
+			}
+	        break;
+	
+	    case 3:
+	        if (monitor[i].stock==1)
+	        {
+	        	if (monitor[i].id==id_leido)
+	    		{
+	    			printf("\nProducto eliminado con exito\n");
+	    			monitor[i].stock = 0;
+	    			i=20;
+	    			system("pause");
+	            	break;
+	        	}
+	                
+	        }else if(i==19 )
+	        {
+	        	system("cls");
+	            printf("Su id ingresado no coincide con ninguno de los existentes\n");
+	            system("pause");
+			}
 
-   // ! hacer la borracion
-    switch (op)
-    {
-    case 1:
+	        break;
+	
+	    case 4:
 
-        for ( i = 0; i < 20; i++)
-        {
-            
-            if (teclado[i].stock==1)
-            {
-                if (teclado[i].id==id_leido)
-                {
-                    
-                    
-                    gets(teclado[i].marca);
+	        if (note[i].stock==1)
+	        {
+	        	if (note[i].id==id_leido)
+	    		{
+	    			printf("\nProducto eliminado con exito\n");
+	    			note[i].stock = 0;
+	    			i=20;
+	    			system("pause");
+	            	break;
+	        	}
+	        }else if(i==19)
+	        {
+	        	system("cls");
+	            printf("Su id ingresado no coincide con ninguno de los existentes\n");
+	            system("pause");
+			}
 
-
-
-                    gets(teclado[i].modelo);
-                    fflush(stdin);
-
-
-                    gets(teclado[i].idioma);
-
-
-                    break;
-                }
-                
-                
-            }else if(i==19 ){
-                system("cls");
-                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
-                    system("pause");
-            }
-            
-        }
-        
-        break;
-
-    case 2:
-        
-        for ( i = 0; i < 20; i++)
-        {
-            if (mouse[i].stock==1)
-            {
-                if (mouse[i].id==id_leido)
-                {
-                    
-                    printf("Ingrese marca\n ");
-                    gets(mouse[i].marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo\n");
-                    gets(mouse[i].modelo);
-                    fflush(stdin);
-
-                    break;
-                }
-                
-            }else if(i==19 ){
-                system("cls");
-                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
-                    system("pause");
-            }
-            
-        }
-        break;
-
-    case 3:
-        
-        for ( i = 0; i < 20; i++)
-        {
-            if (monitor[i].stock==1)
-            {
-                if (monitor[i].id==id_leido)
-                {
-                    
-                    printf("Ingrese marca\n ");
-                    gets(monitor[i].marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo\n");
-                    gets(monitor[i].modelo);
-                    fflush(stdin);
-                    
-                    do{   
-                        printf("Ingrese pulgadas\n");
-                        scanf("%f", &monitor[i].pulgadas); 
-                        fflush(stdin);
-                        if (monitor[i].pulgadas<7)
-                        {
-                            printf("Pulgadas no validos, reingrese el dato\n");
-                        }
-                    } while (monitor[i].pulgadas<7);
-                    break;
-                }
-                
-            }else if(i==19 ){
-                system("cls");
-                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
-                    system("pause");
-            }
-            
-        }
-        break;
-
-    case 4:
-        
-        for ( i = 0; i < 20; i++)
-        {
-            if (note[i].stock==1)
-            {
-                if (note[i].id==id_leido)
-                {
-                    
-                    printf("Ingrese marca\n ");
-                    gets(note[i].marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo\n");
-                    gets(note[i].modelo);
-                    fflush(stdin);
-                    
-                    printf("Ingrese procesador\n");
-                    gets(note[i].procesador);
-                    fflush(stdin);
-
-                    do
-                    {
-                        printf("Ingrese memoria ram\n");
-                        scanf("%d", &note[i].ram);
-                        fflush(stdin);
-                        if (note[i].ram<2);
-                        {
-                            printf("Dato erroneo, reingrese dato\n");
-                        }
-                        
-                    } while (note[i].ram<2);
-
-                    do{   
-                        printf("Ingrese pulgadas\n");
-                        scanf("%f", &note[i].pulgadas); 
-                        fflush(stdin);
-                        if (note[i].pulgadas<11)
-                        {
-                            printf("Pulgadas no validos, reingrese el dato\n");
-                        }
-                    } while (note[i].pulgadas<11);
-
-                    break;
-                }
-                
-            }else if(i==19 ){
-                system("cls");
-                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
-                    system("pause");
-            }
-            
-        }
-
-        break;
-
-    case 5:
-        // todo pc
-        for ( i = 0; i < 20; i++)
-        {
-            if (pc[i].stock==1)
-            {
-                if (pc[i].id==id_leido)
-                {
-                    
-                    printf("Ingrese marca\n ");
-                    gets(pc[i].marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo\n");
-                    gets(pc[i].modelo);
-                    fflush(stdin);
-                    
-                    do
-                    {
-                        printf("Ingrese memoria ram\n");
-                        scanf("%d", &pc[i].ram);
-                        fflush(stdin);
-                        if (pc[i].ram<2);
-                        {
-                            printf("Dato erroneo, reingrese dato\n");
-                        }
-                        
-                    } while (pc[i].ram<2);
-
-                    printf("Ingrese procesador del pc\n");
-                    gets(pc[i].procesador);
-                    fflush(stdin);
-
-                    // ? leemos teclado
-                    printf("Ingrese marca del teclado del pc\n ");
-                    gets(pc[i].pc_teclado.marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo del teclado del pc\n");
-                    gets(pc[i].pc_teclado.modelo);
-                    fflush(stdin);
-
-                    printf("Ingrese Idioma\n");
-                    gets(pc[i].pc_teclado.idioma);
-                    fflush(stdin);
-                    
-                    // ? leemos mouse
-                    printf("Ingrese marca del mouse del pc\n ");
-                    gets(pc[i].pc_mouse.marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo del mouse del pc\n");
-                    gets(pc[i].pc_mouse.modelo);
-                    fflush(stdin);
-
-                    //? leemos monitor del pc
-                    printf("Ingrese marca del monitor del pc\n ");
-                    gets(pc[i].pc_monitor.marca);
-                    fflush(stdin);
-
-                    printf("Ingrese modelo del monitor del pc\n");
-                    gets(pc[i].pc_monitor.modelo);
-                    fflush(stdin);
-
-                    do{   
-                        printf("Ingrese pulgadas del monitor del pc\n");
-                        scanf("%f", &pc[i].pc_monitor.pulgadas); 
-                        fflush(stdin);
-                        if (pc[i].pc_monitor.pulgadas<7)
-                        {
-                            printf("Pulgadas no validos, reingrese el dato\n");
-                        }
-                    } while (pc[i].pc_monitor.pulgadas<7);
-
-                    break;
-                }
-                
-            }else if(i==19 ){
-                system("cls");
-                    printf("Su id ingresado no coincide con ninguno de los existentes\n");
-                    system("pause");
-            }
-            
-        }
-        break;
-
-    default:
-            printf("no deberias ver esto\n");
-        break;
-    }
+	        break;
+	
+	    case 5:
+	        // todo pc
+	        if (pc[i].stock==1)
+	        {
+	        	if (pc[i].id==id_leido)
+	    		{
+	    			printf("\nProducto eliminado con exito\n");
+	    			pc[i].stock = 0;
+	    			pc[i].pc_teclado.stock = 0;
+	    			pc[i].pc_mouse.stock = 0;
+	    			pc[i].pc_monitor.stock = 0;
+	    			
+	    			i=20;
+	    			system("pause");
+	    			
+	            	break;
+	        	}
+	                
+	        }else if(i==19)
+	        {
+	        	system("cls");
+	            printf("Su id ingresado no coincide con ninguno de los existentes\n");
+	            system("pause");
+			}
+	        
+	        break;
+	    default:
+	        printf("no deberias ver esto\n");
+	        break;
+    	}
+	}
+    
 
 
 }
-
 void llenar_user()
 {
     user.id = 777;
-    strcpy(user.nombres, "juanito alcachofa");
-    strcpy(user.apellidom, "aguilera");
-    strcpy(user.apellidop, "arenas");
+    strcpy(user.nombres, "Joseph");
+    strcpy(user.apellidom, "Joestar");
+    strcpy(user.apellidop, "JoJo");
     strcpy(user.nombreuser, "vegeta");
     strcpy(user.contrasena, "12345");
 }
 void mostrar_user()
 {
+
     printf("El nombre de usuario es %s\ny su contrasena es: %s\n", user.nombreuser, user.contrasena);
     printf("sus nombres son %s \n", user.nombres);
     printf("sus apellidos son %s %s\n", user.apellidop, user.apellidom);
-    printf("y su id es %d\n", user.id);
+	printf("y su id es %d\n", user.id);
+}
+
+int buscar_marca(char marc[], int i)//FUNCION RECURSIVA HECHA Y SOLO ENCUENTRA CON STRING SI O SI IGUALES MAYUSCULAS Y MINUSCULAS.
+{
+	if(strcmp(marc, teclado[i].marca) == 0  || strcmp(marc, mouse[i].marca)== 0 || strcmp(marc, monitor[i].marca)== 0 || strcmp(marc, note[i].marca) == 0 || strcmp(marc, pc[i].marca) == 0 )
+	{
+		return 1;
+	}else if( i = 19)
+	{
+		printf("\n No se encontro\n");
+		system("pause");
+		return 0;
+	}
+	
+	buscar_marca(marc, i + 1);
+}
+
+void mostrar_marcas(char marc[])
+{
+	printf("se encontro\n");
+	system("pause");
 }
